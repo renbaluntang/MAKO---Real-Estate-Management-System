@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Update User Role{% endblock %}
+
+{% block content %}
+    <h2>Update Role for {{ user.username }}</h2>
+    <form method="post" action="{% url 'update_user_role' user.id %}">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Update Role</button>
+    </form>
+{% endblock %}

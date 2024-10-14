@@ -1,0 +1,22 @@
+{% extends 'base.html' %} {% load static %} {% block content %}
+<div class="logo">
+  <img src="{% static 'images/mako.png' %}" alt="Mako Logo" />
+</div>
+<form method="post" action="{% url 'login' %}">
+  {% csrf_token %}
+  <label for="username">Username:</label>
+  <input type="text" id="username" name="username" required />
+  <br>
+  <label for="password">Password:</label>
+  <input type="password" id="password" name="password" required />
+  <br>
+  <input type="submit" value="Login" />
+ 
+
+</form>
+<p>
+  <a href="{% url 'register' %}" class="sign-up-button">Sign Up</a>
+</p>
+
+<p><a href="{% url 'password_reset' %}">Forgot your password?</a></p>
+{% endblock %}

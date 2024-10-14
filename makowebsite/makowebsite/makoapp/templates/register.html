@@ -1,0 +1,56 @@
+{% extends 'base.html' %}
+
+{% block title %}Register{% endblock %}
+
+{% block content %}
+    <h2>Register</h2>
+    <form method="post" enctype="multipart/form-data" action="{% url 'register' %}">
+        {% csrf_token %}
+        <div>
+            <label for="id_user_name">Full Name:</label>
+            {{ form.user_name }}
+            {{ form.user_name.errors }}
+        </div>
+        <div>
+            <label for="id_user_contact">Contact Number:</label>
+            {{ form.user_contact }}
+            {{ form.user_contact.errors }}
+        </div>
+        <div>
+            <label for="id_user_email">Email Address:</label>
+            {{ form.user_email }}
+            {{ form.user_email.errors }}
+        </div>
+        <div>
+            <label for="id_user_address">Address:</label>
+            {{ form.user_address }}
+            {{ form.user_address.errors }}
+        </div>
+        <div>
+            <label for="id_user_image">Profile Image:</label>
+            {{ form.user_image }}
+            {{ form.user_image.errors }}
+        </div>
+        <div>
+            <label for="id_role">Role:</label>
+            {{ form.role }}
+            {{ form.role.errors }}
+        </div>
+        <div>
+            <label for="id_username">Username:</label>
+            {{ form.username }}
+            {{ form.username.errors }}
+        </div>
+        <div>
+            <label for="id_password1">Password:</label>
+            {{ form.password1 }}
+            {{ form.password1.errors }}
+        </div>
+        <div>
+            <label for="id_password2">Password Confirmation:</label>
+            {{ form.password2 }}
+            {{ form.password2.errors }}
+        </div>
+        <input type="submit" value="Register">
+    </form>
+{% endblock %}

@@ -1,0 +1,21 @@
+{% extends 'base.html' %} 
+{% block title %}Home Page{% endblock %} 
+{% block content %} 
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
+
+<div class="main-section">
+<div class="text-container">
+    <h1>Modern living</h1>
+    <h1>for everyone</h1>
+    <p><span>We provide a complete service for the sale, purchase<br> of real estate. Providing easy access to the Real Estate<br> market for all.<span</p>
+</div>
+<div class="search-container">
+    <select>
+        <option>Property type</option>
+    </select>
+    <input type="text" placeholder="Search for location" />
+    <button>Search</button>
+</div>
+</div>
+{% endblock %}
