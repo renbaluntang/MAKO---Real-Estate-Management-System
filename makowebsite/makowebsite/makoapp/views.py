@@ -3,29 +3,39 @@ from django.contrib.auth import login, authenticate
 from django.contrib.auth.forms import AuthenticationForm, PasswordResetForm
 from .forms import UserRegistrationForm, UpdateUserRoleForm
 from .models import Role, User
+from django.contrib import messages
 from django.contrib.auth.decorators import login_required
+from .forms import UserRegistrationForm, UserUpdateForm
+from django.contrib.auth import login, authenticate, logout
 
 # Home page
 def home(request):
     return render(request, 'home.html')
 
-# Register view
+
+
+def home(request):
+    return render(request, 'home.html')
+
 def register_view(request):
-    roles = Role.objects.all()  # Fetch all roles from the database
     if request.method == 'POST':
         form = UserRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
-            user = form.save(commit=False)
-            role_id = request.POST.get('role')
-            user.role = Role.objects.get(id=role_id)
-            user.save()
-            login(request, user)
-            return redirect('home')
+            user = form.save()
+            # Authenticate and log in the user
+            user = authenticate(username=user.username, password=form.cleaned_data['password1'])
+            if user is not None:
+                login(request, user)
+                return redirect('home')
+            else:
+                print("Authentication failed")
+        else:
+            print("Form is not valid")
+            print(form.errors)
     else:
         form = UserRegistrationForm()
-    return render(request, 'register.html', {'form': form, 'roles': roles})
+    return render(request, 'register.html', {'form': form})
 
-# Login view
 def login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -36,6 +46,11 @@ def login_view(request):
             if user is not None:
                 login(request, user)
                 return redirect('home')
+            else:
+                print("Authentication failed")
+        else:
+            print("Form is not valid")
+            print(form.errors)
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
@@ -47,10 +62,32 @@ def password_reset_view(request):
         form.save()
     return render(request, 'password_reset.html', {'form': form})
 
-# Profile page
+
+@login_required
 def profile_view(request):
-    # Logic for displaying user's profile details could be added here
     return render(request, 'profile.html')
+
+@login_required
+def profile_update_view(request):
+    user = request.user
+    if request.method == 'POST':
+        form = UserUpdateForm(request.POST, request.FILES, instance=user)
+        if form.is_valid():
+            form.save()
+            return redirect('profile')
+    else:
+        form = UserUpdateForm(instance=user)
+    return render(request, 'profile_update.html', {'form': form})
+
+@login_required
+def profile_delete_view(request):
+    user = request.user
+    if request.method == 'POST':
+        user.delete()
+        return redirect('home')
+    return render(request, 'profile_delete.html')
+
+
 
 @login_required
 def update_user_role_view(request, user_id):
