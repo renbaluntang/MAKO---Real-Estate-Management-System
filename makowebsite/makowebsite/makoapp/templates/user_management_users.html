@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block title %}User Management{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center">Users List</h1>
+    <div class="search-container">
+        <input type="text" placeholder="Search" class="form-control" />
+        <button class="btn btn-primary">Search</button>
+    </div>
+    <h2 class="mt-4">List Users</h2>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Joined</th>
+                <th>Role</th>
+                <th>Address</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for user in users %}
+            <tr>
+                <td>{{ user.user_name }}</td>
+                <td>{{ user.user_email }}</td>
+                <td>{{ user.date_joined|date:"d M. Y" }}</td>
+                <td><span class="badge badge-success">{{ user.role.role_name }}</span></td>
+                <td>{{ user.user_address }}</td>
+                <td>
+                    <a href="{% url 'update_user_role' user.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <a href="#" class="btn btn-danger btn-sm">Delete</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

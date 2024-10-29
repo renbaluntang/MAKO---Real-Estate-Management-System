@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+
+{% block title %}User Management Dashboard{% endblock %}
+
+{% block content %}
+<div class="container">
+    <h1 class="text-center">User Management Dashboard</h1>
+    <p>Welcome to the User Management Dashboard. Here you can manage users and their roles.</p>
+    <a href="{% url 'user_management_users' %}" class="btn btn-primary">Manage Users</a>
+</div>
+{% endblock %}

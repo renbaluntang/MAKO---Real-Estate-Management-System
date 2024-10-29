@@ -7,13 +7,15 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from .forms import UserRegistrationForm, UserUpdateForm
 from django.contrib.auth import login, authenticate, logout
+from django.urls import reverse
+
+
+
+def user_management(request):
+    users = User.objects.all()  # Fetch all users from the database
+    return render(request, 'user_management_users.html', {'users': users})
 
 # Home page
-def home(request):
-    return render(request, 'home.html')
-
-
-
 def home(request):
     return render(request, 'home.html')
 
@@ -22,16 +24,12 @@ def register_view(request):
         form = UserRegistrationForm(request.POST, request.FILES)
         if form.is_valid():
             user = form.save()
-            # Authenticate and log in the user
             user = authenticate(username=user.username, password=form.cleaned_data['password1'])
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('user_management_dashboard')  # Redirect to the new dashboard
             else:
                 print("Authentication failed")
-        else:
-            print("Form is not valid")
-            print(form.errors)
     else:
         form = UserRegistrationForm()
     return render(request, 'register.html', {'form': form})
@@ -45,12 +43,9 @@ def login_view(request):
             user = authenticate(username=username, password=password)
             if user is not None:
                 login(request, user)
-                return redirect('home')
+                return redirect('user_management_dashboard')  # Redirect to the new dashboard
             else:
                 print("Authentication failed")
-        else:
-            print("Form is not valid")
-            print(form.errors)
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
@@ -100,3 +95,10 @@ def update_user_role_view(request, user_id):
     else:
         form = UpdateUserRoleForm(instance=user)
     return render(request, 'update_user_role.html', {'form': form, 'user': user})
+
+
+def user_management_users_view(request):
+    return render(request, 'user_management_users.html')
+
+def user_management_dashboard_view(request):
+    return render(request, 'user_management_dashboard.html')
