@@ -1,0 +1,55 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Property List{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">Property List</h1>
+
+    <!-- Search and Filter Form -->
+    <form method="get" action="{% url 'property_list' %}" class="mb-4">
+        <div class="input-group mb-3">
+            <input type="text" name="q" class="form-control" placeholder="Search properties..." value="{{ request.GET.q }}">
+            <div class="input-group-append">
+                <button class="btn btn-outline-secondary" type="submit">Search</button>
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="status">Filter by Status:</label>
+            <select name="status" id="status" class="form-control" onchange="this.form.submit()">
+                <option value="">All</option>
+                <option value="sold" {% if request.GET.status == 'sold' %}selected{% endif %}>Sold</option>
+                <option value="unsold" {% if request.GET.status == 'unsold' %}selected{% endif %}>Unsold</option>
+            </select>
+        </div>
+    </form>
+
+    <div class="row">
+        {% for property in properties %}
+        <div class="col-md-4 mb-4">
+            <div class="card shadow-sm">
+                {% if property.property_image %}
+                    <img src="{{ property.property_image.url }}" class="card-img-top" alt="{{ property.property_name }}">
+                {% else %}
+                    <img src="{% static 'images/default-image.png' %}" class="card-img-top" alt="Default Image">
+                {% endif %}
+                <div class="card-body">
+                    <h5 class="card-title">{{ property.property_name }}</h5>
+                    <p class="card-text">{{ property.property_description }}</p>
+                    <p class="card-text"><strong>Price:</strong> ${{ property.property_price }}</p>
+                    <p class="card-text"><strong>Seller:</strong> {{ property.seller.user_name }}</p>
+                    {% if not property.is_sold %}
+                        <a href="{% url 'property_buy' property.id %}" class="btn btn-success">Buy Now</a>
+                    {% else %}
+                        <span class="badge badge-secondary">Sold</span>
+                    {% endif %}
+                    <a href="{% url 'property_detail' property.id %}" class="btn btn-primary mt-2">View Details</a>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

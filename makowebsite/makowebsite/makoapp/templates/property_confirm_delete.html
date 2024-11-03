@@ -1,0 +1,14 @@
+<!-- property_confirm_delete.html -->
+
+{% extends 'base.html' %}
+
+{% block title %}Confirm Delete{% endblock %}
+
+{% block content %}
+<h1>Are you sure you want to delete "{{ property.property_name }}"?</h1>
+<form method="post">
+    {% csrf_token %}
+    <button type="submit" class="btn btn-danger">Confirm Delete</button>
+    <a href="{% url 'seller_property_list' %}" class="btn btn-secondary">Cancel</a>
+</form>
+{% endblock %}

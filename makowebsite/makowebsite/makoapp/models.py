@@ -9,14 +9,6 @@ class Role(models.Model):
     def __str__(self):
         return self.role_name
 
-class Permissions(models.Model):
-    permission_name = models.CharField(max_length=255)
-    permission_perks = models.CharField(max_length=255)
-    permission_role = models.ForeignKey(Role, on_delete=models.CASCADE, related_name='permissions')
-
-    def __str__(self):
-        return self.permission_name
-
 class User(AbstractUser):
     user_name = models.CharField(max_length=255)
     user_contact = models.CharField(max_length=20)
@@ -34,13 +26,18 @@ class Property(models.Model):
     property_name = models.CharField(max_length=255)
     property_description = models.CharField(max_length=255)
     property_price = models.DecimalField(max_digits=10, decimal_places=2)
+    property_image = models.ImageField(upload_to='property_images/', null=True, blank=True)
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='properties')
+    is_sold = models.BooleanField(default=False) 
 
     def __str__(self):
         return self.property_name
 
+
 class Document(models.Model):
     documentation_type = models.CharField(max_length=255)
+    documentation_file = models.FileField(upload_to='documentation_files/', null=True, blank=True)
+    documentation_image = models.ImageField(upload_to='document_images/', null=True, blank=True)  # Add this line
     property = models.OneToOneField(Property, on_delete=models.CASCADE)
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents_sold', null=True, blank=True)
     buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents_bought', null=True, blank=True)

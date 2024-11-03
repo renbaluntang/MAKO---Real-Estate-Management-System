@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}My Property Documents{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">My Property Documents</h1>
+
+    {% if user.role.role_name != 'Seller' %}
+        <div class="alert alert-danger" role="alert">
+            You do not have permission to view this page.
+        </div>
+    {% else %}
+        <div class="row">
+            {% for property in properties %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    {% if property.property_image %}
+                        <img src="{{ property.property_image.url }}" class="card-img-top" alt="{{ property.property_name }}">
+                    {% else %}
+                        <img src="{% static 'images/default-image.png' %}" class="card-img-top" alt="Default Image">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ property.property_name }}</h5>
+                        <p class="card-text">{{ property.property_description }}</p>
+                        <p class="card-text"><strong>Price:</strong> ${{ property.property_price }}</p>
+                        <p class="card-text"><strong>Seller:</strong> {{ property.seller.username }}</p>
+                        <h6 class="mt-3">Documents:</h6>
+                        <ul class="list-group">
+                            {% for document in property.document_set.all %}
+                                <li class="list-group-item">
+                                    {% if document.documentation_file %}
+                                        <a href="{{ document.documentation_file.url }}">{{ document.documentation_type }}</a>
+                                    {% else %}
+                                        {{ document.documentation_type }} (No file available)
+                                    {% endif %}
+                                </li>
+                            {% empty %}
+                                <li class="list-group-item">No documents available for this property.</li>
+                            {% endfor %}
+                        </ul>
+                        <div class="mt-3">
+                            <a href="{% url 'property_documents' property.id %}" class="btn btn-primary mt-3">View/Add Documents</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

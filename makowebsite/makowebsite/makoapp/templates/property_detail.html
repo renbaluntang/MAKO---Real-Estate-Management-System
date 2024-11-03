@@ -1,0 +1,30 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Property Detail{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <h1 class="card-title text-center mb-4">{{ property.property_name }}</h1>
+            <div class="row">
+                <div class="col-md-6">
+                    {% if property.property_image %}
+                        <img src="{{ property.property_image.url }}" class="img-fluid rounded mb-4" alt="{{ property.property_name }}">
+                    {% else %}
+                        <img src="{% static 'images/default-image.png' %}" class="img-fluid rounded mb-4" alt="Default Image">
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <p class="card-text">{{ property.property_description }}</p>
+                    <p class="card-text"><strong>Price:</strong> ${{ property.property_price }}</p>
+                    <a href="{% url 'property_list' %}" class="btn btn-secondary mt-3">Back to List</a>
+                    <a href="{% url 'property_documents' property.id %}" class="btn btn-primary mt-3">View Documents</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

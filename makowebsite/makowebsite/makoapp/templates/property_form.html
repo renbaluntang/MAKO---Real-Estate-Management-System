@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}{% if form.instance.pk %}Edit{% else %}Add{% endif %} Property{% endblock %}
+
+{% block content %}
+<div class="container mt-5 mb-5">
+    <div class="property-form-container">
+        <h1 class="text-center mb-4">{% if form.instance.pk %}Edit{% else %}Add{% endif %} Property</h1>
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <form method="post" enctype="multipart/form-data" class="update-property-form mt-4">
+                    {% csrf_token %}
+                    
+                    {% if form.instance.pk and form.instance.property_image %}
+                    <div class="mb-4 text-center">
+                        <img src="{{ form.instance.property_image.url }}" class="img-fluid rounded" alt="{{ form.instance.property_name }}">
+                    </div>
+                    {% endif %}
+                    
+                    <div class="form-group">
+                        {{ form.as_p }}
+                    </div>
+                    
+                    <div class="text-center mt-4">
+                        <button type="submit" class="btn btn-success btn-lg">Save</button>
+                        <a href="{% url 'property_list' %}" class="btn btn-secondary btn-lg ml-2">Cancel</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
