@@ -28,10 +28,17 @@ class Property(models.Model):
     property_price = models.DecimalField(max_digits=10, decimal_places=2)
     property_image = models.ImageField(upload_to='property_images/', null=True, blank=True)
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='properties')
+    buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='properties_bought', null=True, blank=True)
     is_sold = models.BooleanField(default=False) 
+
 
     def __str__(self):
         return self.property_name
+
+    def sell_property(self, buyer):
+        self.buyer = buyer
+        self.is_sold = True
+        self.save()
 
 
 class Document(models.Model):

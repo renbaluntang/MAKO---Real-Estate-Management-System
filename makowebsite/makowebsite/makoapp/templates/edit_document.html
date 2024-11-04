@@ -13,6 +13,20 @@
         </div>
     {% endif %}
     
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+            <!-- Display the seller if it exists -->
+            {% if document.property.seller %}
+                <p class="card-text"><strong>Seller:</strong> {{ document.property.seller.username }}</p>
+            {% endif %}
+            
+            <!-- Display the buyer if it exists -->
+            {% if document.property.buyer %}
+                <p class="card-text"><strong>Buyer:</strong> {{ document.property.buyer.username }}</p>
+            {% endif %}
+        </div>
+    </div>
+    
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}

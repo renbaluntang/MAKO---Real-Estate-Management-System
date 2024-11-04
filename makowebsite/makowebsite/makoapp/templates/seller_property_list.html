@@ -3,7 +3,6 @@
 {% load static %}
 
 {% block title %}My Properties{% endblock %}
-
 {% block content %}
 <div class="container mt-5">
     <h1 class="mb-4 text-center">My Properties</h1>
@@ -49,6 +48,7 @@
                         <p class="card-text"><strong>Seller:</strong> {{ property.seller.username }}</p>
                         {% if property.is_sold %}
                             <span class="badge badge-danger">Sold</span>
+                            <p class="card-text"><strong>Buyer:</strong> {{ property.buyer.username }}</p>
                         {% else %}
                             <span class="badge badge-success">Available</span>
                         {% endif %}

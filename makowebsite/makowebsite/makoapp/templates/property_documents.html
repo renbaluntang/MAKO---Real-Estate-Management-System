@@ -2,7 +2,6 @@
 {% load static %}
 
 {% block title %}Documents for {{ property.property_name }}{% endblock %}
-
 {% block content %}
 <div class="container mt-5">
     <div class="card shadow-sm mb-4">
@@ -20,6 +19,9 @@
                     <p class="card-text">{{ property.property_description }}</p>
                     <p class="card-text"><strong>Price:</strong> ${{ property.property_price }}</p>
                     <p class="card-text"><strong>Seller:</strong> {{ property.seller.username }}</p>
+                    {% if property.buyer %}
+                        <p class="card-text"><strong>Buyer:</strong> {{ property.buyer.user_name }} </p>
+                    {% endif %}
                     <a href="{% url 'document_list' %}" class="btn btn-primary mt-3">Back to Document List</a>
                 </div>
             </div>
@@ -36,7 +38,7 @@
                     <div>
                         {{ document.documentation_type }}
                         {% if document.documentation_image %}
-                            <img src="{{ document.documentation_image.url }}" class="img-thumbnail mt-2" alt="{{ document.documentation_type }}">
+                            <img src="{{ document.documentation_image.url }}" class="img-thumbnail mt-2" style="max-width: 50px;" alt="{{ document.documentation_type }}">
                         {% endif %}
                     </div>
                     <div>

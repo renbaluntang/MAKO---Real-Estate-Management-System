@@ -28,20 +28,22 @@
                         <p class="card-text"><strong>Price:</strong> ${{ property.property_price }}</p>
                         <p class="card-text"><strong>Seller:</strong> {{ property.seller.username }}</p>
                         <h6 class="mt-3">Documents:</h6>
-                        <ul class="list-group">
+                        <div class="d-flex flex-wrap">
                             {% for document in property.document_set.all %}
-                                <li class="list-group-item">
-                                    {{ document.documentation_type }}
+                                <div class="d-flex align-items-center mb-2" style="width: 100%;">
+                                    <div class="flex-grow-1">
+                                        {{ document.documentation_type }}
+                                    </div>
                                     {% if document.documentation_image %}
-                                        <img src="{{ document.documentation_image.url }}" class="img-thumbnail mt-2" alt="{{ document.documentation_type }}">
+                                        <img src="{{ document.documentation_image.url }}" class="img-thumbnail" alt="{{ document.documentation_type }}" style="width: 60px; height: 60px; object-fit: cover;">
                                     {% else %}
-                                        (No image available)
+                                        <span>(No image available)</span>
                                     {% endif %}
-                                </li>
+                                </div>
                             {% empty %}
-                                <li class="list-group-item">No documents available for this property.</li>
+                                <p>No documents available for this property.</p>
                             {% endfor %}
-                        </ul>
+                        </div>
                         <div class="mt-3">
                             <a href="{% url 'property_documents' property.id %}" class="btn btn-primary mt-3">View Documents</a>
                         </div>

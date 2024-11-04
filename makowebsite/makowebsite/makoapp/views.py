@@ -199,7 +199,8 @@ def seller_property_list(request):
 def property_buy(request, property_id):
     property = get_object_or_404(Property, id=property_id, is_sold=False)
 
-    # Mark the property as sold
+    # Assign the buyer and mark the property as sold
+    property.buyer = request.user
     property.is_sold = True
     property.save()
 
