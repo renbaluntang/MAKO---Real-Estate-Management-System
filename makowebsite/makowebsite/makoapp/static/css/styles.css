@@ -7,14 +7,9 @@ html, body {
   height: 100%;
   margin: 0;
   width: 100%;
-}
-
-body {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
   font-family: Arial, sans-serif;
-  overflow-x: hidden;
 }
 
 
@@ -71,16 +66,15 @@ nav a:hover {
 
 
 .main-content {
-  flex: 1;
+  flex: 1; 
   padding: 20px;
   box-sizing: border-box;
-  min-height: 100vh; 
-  flex-grow: 1;
-  height: auto;
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
   justify-content: flex-start;
 }
+
 
 .main-section h1 {
   font-family: open sans, Arial;
@@ -373,4 +367,23 @@ footer p {
 
 .update-property-form img {
   height: 200px;
+}
+
+.register-form-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  height: 100vh; 
+}
+
+.register-form {
+  width: max-content;
+  padding: 20px;
+  border-radius: 5px;
+}
+.centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center; 
+  height: 100vh;  
 }

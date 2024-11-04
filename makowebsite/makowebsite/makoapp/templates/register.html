@@ -6,7 +6,8 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<form method="post" enctype="multipart/form-data" action="{% url 'register' %}">
+<div class="register-form-container">
+<form method="post" enctype="multipart/form-data" action="{% url 'register' %}" class="register-form">
   {% csrf_token %}
 
   <div class="form-group">
@@ -101,4 +102,5 @@
 
   <input type="submit" value="Register" class="btn-register btn btn-primary" />
 </form>
+</div>
 {% endblock %}

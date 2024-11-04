@@ -66,7 +66,7 @@ def profile_update_view(request):
                 user.set_password(password1)
             user.save()
             messages.success(request, 'Your profile has been updated successfully')
-            return redirect('profile')
+            return redirect('profile', user_id=request.user.id)
     else:
         form = UserUpdateForm(instance=request.user)
     return render(request, 'profile.html', {'form': form})
@@ -77,7 +77,7 @@ def profile_delete_view(request):
     if request.method == 'POST':
         user.delete()
         messages.success(request, 'Your account has been deleted successfully')
-        return redirect('home')
+        return redirect('profile')
     return render(request, 'profile.html')
 
 @login_required
@@ -158,7 +158,7 @@ def property_delete(request, property_id):
         return redirect('seller_property_list')
     return render(request, 'property_confirm_delete.html', {'property': property})
 
-
+@login_required
 def document_list_view(request):
     # Assuming the seller is the logged-in user
     seller = request.user
