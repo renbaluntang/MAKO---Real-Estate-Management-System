@@ -221,7 +221,6 @@ def property_buy(request, property_id):
     # Redirect to a confirmation page or the property detail page
     return redirect('property_detail', property_id=property.id)
 
-
 def property_documents(request, property_id):
     property = get_object_or_404(Property, id=property_id)
     documents = Document.objects.filter(property=property)

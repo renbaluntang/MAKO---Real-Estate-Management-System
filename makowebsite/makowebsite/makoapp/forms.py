@@ -154,11 +154,6 @@ class PropertyForm(forms.ModelForm):
         }
         
 
-class DocumentForm(forms.ModelForm):
-    class Meta:
-        model = Document
-        fields = ['documentation_type', 'property', 'seller', 'buyer']
-
 class TransactionHistoryForm(forms.ModelForm):
     class Meta:
         model = TransactionHistory
@@ -168,9 +163,8 @@ class TransactionHistoryForm(forms.ModelForm):
 class DocumentForm(forms.ModelForm):
     class Meta:
         model = Document
-        fields = ['documentation_type', 'documentation_file', 'documentation_image']
+        fields = ['documentation_type', 'documentation_image']
         widgets = {
             'documentation_type': forms.TextInput(attrs={'class': 'form-control'}),
-            'documentation_file': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
             'documentation_image': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
         }

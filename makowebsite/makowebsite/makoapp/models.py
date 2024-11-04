@@ -36,15 +36,13 @@ class Property(models.Model):
 
 class Document(models.Model):
     documentation_type = models.CharField(max_length=255)
-    documentation_file = models.FileField(upload_to='documentation_files/', null=True, blank=True)
-    documentation_image = models.ImageField(upload_to='document_images/', null=True, blank=True)  # Add this line
-    property = models.OneToOneField(Property, on_delete=models.CASCADE)
+    documentation_image = models.ImageField(upload_to='document_images/', null=True, blank=True) 
+    property = models.ForeignKey(Property, on_delete=models.CASCADE)
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents_sold', null=True, blank=True)
     buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='documents_bought', null=True, blank=True)
 
     def __str__(self):
         return self.documentation_type
-
 class TransactionHistory(models.Model):
     transaction_date = models.DateField()
     transaction_desc = models.CharField(max_length=255)

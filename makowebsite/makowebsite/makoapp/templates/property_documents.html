@@ -34,11 +34,7 @@
                 {% for document in documents %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
-                        {% if document.documentation_file %}
-                            <a href="{{ document.documentation_file.url }}">{{ document.documentation_type }}</a>
-                        {% else %}
-                            {{ document.documentation_type }} (No file available)
-                        {% endif %}
+                        {{ document.documentation_type }}
                         {% if document.documentation_image %}
                             <img src="{{ document.documentation_image.url }}" class="img-thumbnail mt-2" alt="{{ document.documentation_type }}">
                         {% endif %}
