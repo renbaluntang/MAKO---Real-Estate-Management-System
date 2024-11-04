@@ -5,12 +5,24 @@
 {% block content %}
 <div class="container">
     <h1 class="text-center">Users List</h1>
-    <div class="search-container">
-        <input type="text" placeholder="Search" class="form-control" />
-        <button class="btn btn-primary">Search</button>
+    <div class="search-container d-flex mb-4">
+        <form method="GET" action="" class="d-flex w-100">
+            <input type="text" name="search" placeholder="Search" class="form-control me-2" value="{{ search_query }}" style="flex: 1;" />
+            <button class="btn btn-primary" type="submit">Search</button>
+        </form>
     </div>
-    <h2 class="mt-4">List Users</h2>
-    <table class="table table-striped">
+    <div class="d-flex justify-content-between align-items-center mt-4">
+        <h2 class="mb-0">List of Users</h2>
+        <form method="GET" action="" class="d-inline">
+            <select name="role" class="form-control" style="display: inline-block; width: auto;">
+                <option value="all" {% if role_filter == 'all' %}selected{% endif %}>All</option>
+                <option value="buyer" {% if role_filter == 'buyer' %}selected{% endif %}>Buyer</option>
+                <option value="seller" {% if role_filter == 'seller' %}selected{% endif %}>Seller</option>
+            </select>
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+    </div>
+    <table class="table table-striped mt-4">
         <thead>
             <tr>
                 <th>Name</th>
@@ -23,17 +35,19 @@
         </thead>
         <tbody>
             {% for user in users %}
+            {% if user.role.role_name != 'Admin' %}  <!-- Check if user is not an admin -->
             <tr>
                 <td>{{ user.user_name }}</td>
                 <td>{{ user.user_email }}</td>
                 <td>{{ user.date_joined|date:"d M. Y" }}</td>
-                <td><span class="badge badge-success">{{ user.role.role_name }}</span></td>
+                <td><span class="badge badge-primary">{{ user.role.role_name }}</span></td> <!-- or success -->
                 <td>{{ user.user_address }}</td>
                 <td>
                     <a href="{% url 'update_user_role' user.id %}" class="btn btn-warning btn-sm">Edit</a>
                     <a href="#" class="btn btn-danger btn-sm">Delete</a>
                 </td>
             </tr>
+            {% endif %}
             {% endfor %}
         </tbody>
     </table>

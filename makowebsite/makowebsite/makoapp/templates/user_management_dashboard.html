@@ -5,7 +5,58 @@
 {% block content %}
 <div class="container">
     <h1 class="text-center">User Management Dashboard</h1>
-    <p>Welcome to the User Management Dashboard. Here you can manage users and their roles.</p>
-    <a href="{% url 'user_management_users' %}" class="btn btn-primary">Manage Users</a>
+    <p class="text-center">Welcome to the User Management Dashboard. Here you can manage users and their roles.</p>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Total Property</h5>
+                    <h2 class="card-text">{{ total_properties }}</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card text-white bg-primary">
+                <div class="card-body">
+                    <h5 class="card-title">Total Income</h5>
+                    <h2 class="card-text">${{ total_income }}</h2>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Most Recent Property</h5>
+                    {% if recent_property %}
+                        <h6 class="card-subtitle mb-2 text-muted">{{ recent_property.property_name }}</h6>
+                        <p class="card-text">{{ recent_property.property_description }}</p> <!-- Adjust as needed -->
+                    {% else %}
+                        <p>No recent properties available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6 mb-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Most Recently Sold Property</h5>
+                    {% if recent_sold_property %}
+                        <h6 class="card-subtitle mb-2 text-muted">{{ recent_sold_property.property_name }}</h6>
+                        <p class="card-text">{{ recent_sold_property.property_description }}</p> <!-- Adjust as needed -->
+                    {% else %}
+                        <p>No recently sold properties available.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="text-center">
+        <a href="{% url 'user_management_users' %}" class="btn btn-primary">Manage Users</a>
+    </div>
 </div>
 {% endblock %}
