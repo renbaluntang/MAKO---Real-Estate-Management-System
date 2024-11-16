@@ -1,6 +1,18 @@
 from django import forms
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from .models import User, Role, Property, Document, TransactionHistory
+
+
+class CustomLoginForm(AuthenticationForm):
+    username = forms.CharField(
+        max_length=255,
+        label='Username',
+        widget=forms.TextInput(attrs={'placeholder': 'Username', 'class': 'form-control max-width-input'})
+    )
+    password = forms.CharField(
+        label='Password',
+        widget=forms.PasswordInput(attrs={'placeholder': 'Password', 'class': 'form-control max-width-input'})
+    )
 class UserRegistrationForm(UserCreationForm):
     user_name = forms.CharField(
         max_length=255, 

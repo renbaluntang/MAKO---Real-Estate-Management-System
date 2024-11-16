@@ -1,4 +1,4 @@
-# makowebsite/makowebsite/views.py
+# makowebsite/makowebsite/makoapp/views.py
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
@@ -7,14 +7,13 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
 from .forms import UserRegistrationForm, UpdateUserRoleForm, UserUpdateForm
-from .models import Role, User
+from .models import Role, User,Property, TransactionHistory, Document
 from django.contrib.auth import views as auth_views
-from .models import Property, Document, TransactionHistory
-from .forms import PropertyForm, DocumentForm, TransactionHistoryForm
+from .forms import PropertyForm, DocumentForm, TransactionHistoryForm, CustomLoginForm
 from django.contrib.auth.decorators import login_required
-from .models import Property, TransactionHistory, Document
 from django.utils import timezone
 
+    
 def user_management(request):
     users = User.objects.all()
     return render(request, 'user_management_users.html', {'users': users})
@@ -39,14 +38,20 @@ def register_view(request):
 
 def login_view(request):
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = CustomLoginForm(request, data=request.POST)  # Use CustomLoginForm
         if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            next_url = request.POST.get('next') or request.GET.get('next') or 'home'
-            return redirect(next_url)
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(request, username=username, password=password)  # Authenticate the user
+            if user is not None:
+                login(request, user)  # Log the user in
+                next_url = request.POST.get('next') or request.GET.get('next') or 'home'
+                return redirect(next_url)  # Redirect to the next URL or home
+            else:
+                form.add_error(None, "Invalid username or password.")  # Add error if authentication fails
     else:
-        form = AuthenticationForm()
+        form = CustomLoginForm()  # Initialize the form for GET requests
+
     return render(request, 'login.html', {'form': form, 'next': request.GET.get('next', '')})
 
 

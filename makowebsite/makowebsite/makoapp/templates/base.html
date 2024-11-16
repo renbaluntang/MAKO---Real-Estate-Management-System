@@ -8,6 +8,7 @@
       rel="stylesheet"
       href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
     />
+    <link rel="icon" href="{% static 'images/makov2.png' %}" type="image/x-icon">
     <title>{% block title %} Mako Website {% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}" />
   </head>
@@ -21,12 +22,27 @@
             class="logo"
           />
         </a>
-        <a href="{% url 'user_management_dashboard' %}">Dashboard</a>
-        <a href="{% url 'user_management_users' %}">Users</a>
-        <a href="{% url 'document_list' %}">Documents</a>
+
+        {% if user.is_authenticated and user.is_admin %}
+          <a href="{% url 'user_management_dashboard' %}">Dashboard</a>
+          <a href="{% url 'user_management_users' %}">Users</a>
+        {% endif %}
+
+        {% if user.is_authenticated and user.is_seller %}
+          <a href="{% url 'document_list' %}">Documents</a>
+        {% endif %}
+
         <a href="{% url 'property_list' %}">Property List</a>
+
+
+        {% if user.is_authenticated and user.is_admin %}
         <a href="{% url 'transaction_list' %}">Transactions</a>
-        <a href="{% url 'seller_property_list' %}">My Properties</a>
+        {% endif %}
+
+        {% if user.is_authenticated and user.is_seller %}
+          <a href="{% url 'seller_property_list' %}">My Properties</a>
+        {% endif %}
+      
       </nav>
       <nav>
         {% if user.is_authenticated %}
@@ -39,7 +55,7 @@
           </a>
           <form method="post" action="{% url 'logout' %}" style="display:inline;">
             {% csrf_token %}
-            <button type="submit" class="btn btn-link" style="display:inline; padding:0; border:none; background:none;">Logout</button>
+            <button type="submit" class="btn btn-link" style="display:inline; padding:0; border:none; background:none;color:black;">Logout</button>
           </form>
         {% else %}
           <a href="{% url 'login' %}" class="profile-icon" class="profile">

@@ -92,9 +92,6 @@ nav a:hover {
   line-height: 1.2;
 }
 
-.main-section span {
-  background-color: white;
-}
 
 .search-container {
   margin-top: 20px;
@@ -113,6 +110,11 @@ nav a:hover {
   text-decoration: none;
   border-radius: 5px;
   transition: background-color 0.3s;
+}
+
+.textArt {
+  font-size: 24px;
+  font-style: italic
 }
 
 .sign-up-button:hover {

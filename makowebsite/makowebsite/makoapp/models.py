@@ -19,6 +19,15 @@ class User(AbstractUser):
 
     def __str__(self):
         return self.user_name
+    
+    def is_admin(self):
+        return self.role and self.role.role_name == 'Admin' 
+    
+    def is_buyer(self):
+        return self.role and self.role.role_name == 'Buyer' 
+    
+    def is_seller(self):
+        return self.role and self.role.role_name == 'Seller' 
 
 
 

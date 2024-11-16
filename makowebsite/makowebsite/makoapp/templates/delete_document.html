@@ -6,6 +6,7 @@
 {% block title %}Delete Document{% endblock %}
 
 {% block content %}
+{% if user.role.role_name == 'Admin' or user.role.role_name == 'Seller' %}
 <div class="container mt-5">
     <h1 class="mb-4 text-center">Delete Document</h1>
     <p>Are you sure you want to delete the document "{{ document.documentation_type }}"?</p>
@@ -15,4 +16,9 @@
         <a href="{% url 'property_documents' document.property.id %}" class="btn btn-secondary">Cancel</a>
     </form>
 </div>
+{% else %}
+    <div class="alert alert-danger" role="alert">
+        You do not have permission to delete this document.
+    </div>
+{% endif %}
 {% endblock %}
