@@ -98,7 +98,25 @@ def update_user_role_view(request, user_id):
     return render(request, 'update_user_role.html', {'form': form, 'user': user})
 
 def user_management_users_view(request):
-    return render(request, 'user_management_users.html')
+    # Get search query and role filter from request
+    search_query = request.GET.get('search', '')
+    role_filter = request.GET.get('role', 'all')
+
+    # Base query for users
+    users = User.objects.exclude(role__role_name='Admin')  # Exclude admin users
+
+    # Apply search filter
+    if search_query:
+        users = users.filter(user_name__icontains=search_query)
+
+    # Apply role filter
+    if role_filter == 'buyer':
+        users = users.filter(role__role_name='Buyer')
+    elif role_filter == 'seller':
+        users = users.filter(role__role_name='Seller')
+
+    return render(request, 'user_management_users.html', {'users': users, 'search_query': search_query, 'role_filter': role_filter})
+
 
 def user_management_dashboard_view(request):
     return render(request, 'user_management_dashboard.html')
