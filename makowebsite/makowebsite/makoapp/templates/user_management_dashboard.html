@@ -1,5 +1,7 @@
 {% extends 'base.html' %}
 
+{% load static %}
+
 {% block title %}User Management Dashboard{% endblock %}
 
 {% block content %}
@@ -11,44 +13,79 @@
         <div class="col-md-6 mb-4">
             <div class="card text-white bg-primary">
                 <div class="card-body">
-                    <h5 class="card-title">Total Property</h5>
-                    <h2 class="card-text">{{ total_properties }}</h2>
+                    <h5 class="card-title">Seller Accounts Total:</h5>
+                    <h2 class="card-text">{{ total_seller_accounts }}</h2>
                 </div>
             </div>
         </div>
         <div class="col-md-6 mb-4">
             <div class="card text-white bg-primary">
                 <div class="card-body">
-                    <h5 class="card-title">Total Income</h5>
-                    <h2 class="card-text">${{ total_income }}</h2>
+                    <h5 class="card-title">Buyer Accounts Total:</h5>
+                    <h2 class="card-text">{{ total_buyer_accounts }}</h2>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="row">
-        <div class="col-md-6 mb-4">
-            <div class="card">
+        <div class="col-md-4 mb-4">  <!-- Most Recently Added Property Card -->
+            <div class="card" style="width: 100%;">
                 <div class="card-body">
-                    <h5 class="card-title">Most Recent Property</h5>
+                    <h5 class="card-title">Most Recently Added Property</h5>
                     {% if recent_property %}
-                        <h6 class="card-subtitle mb-2 text-muted">{{ recent_property.property_name }}</h6>
-                        <p class="card-text">{{ recent_property.property_description }}</p> <!-- Adjust as needed -->
+                        {% if recent_property.property_image %}
+                            <img src="{{ recent_property.property_image.url }}" class="img-fluid mb-3" alt="{{ recent_property.property_name }}">
+                        {% else %}
+                            <img src="{% static 'images/default-image.png' %}" class="img-fluid mb-3" alt="Default Image">
+                        {% endif %}
+                        <h5 class="card-title">{{ recent_property.property_name }}</h5>
+                        <p class="card-text">{{ recent_property.property_description }}</p>
+                        <p class="card-text"><strong>Price:</strong> ${{ recent_property.property_price }}</p>
+                        <p class="card-text d-flex justify-content-between align-items-center">
+                            <span><strong>Seller:</strong> {{ recent_property.seller.user_name }}</span>
+                            <a href="{% url 'property_list' %}" class="text-info ms-auto">View All Properties</a>
+                        </p>
                     {% else %}
                         <p>No recent properties available.</p>
                     {% endif %}
                 </div>
             </div>
         </div>
-        <div class="col-md-6 mb-4">
-            <div class="card">
+    
+        <div class="col-md-4 mb-4">  <!-- Total Properties Count Container -->
+            <div class="card" style="width: 100%;">
+                <div class="card-body text-center text-white bg-primary">  <!-- Center the text -->
+                    <h5 class="card-title">Total Properties:</h5>
+                    <h2 class="card-text">{{ total_properties }}</h2>  <!-- Display total properties count -->
+                </div>
+                <hr class="my-0">  <!-- Divider line -->
+                <div class="card-body text-center text-white bg-primary">  <!-- Center the text -->
+                    <h5 class="card-title">Total Sold Properties:</h5>
+                    <h2 class="card-text">{{ total_sold_properties }}</h2>  <!-- Display total sold properties count -->
+                </div>
+            </div>
+        </div>
+    
+        <div class="col-md-4 mb-4">  <!-- Most Recently Sold Property Card -->
+            <div class="card" style="width: 100%;">
                 <div class="card-body">
                     <h5 class="card-title">Most Recently Sold Property</h5>
                     {% if recent_sold_property %}
-                        <h6 class="card-subtitle mb-2 text-muted">{{ recent_sold_property.property_name }}</h6>
-                        <p class="card-text">{{ recent_sold_property.property_description }}</p> <!-- Adjust as needed -->
+                        {% if recent_sold_property.property_image %}
+                            <img src="{{ recent_sold_property.property_image.url }}" class="img-fluid mb-3" alt="{{ recent_sold_property.property_name }}">
+                        {% else %}
+                            <img src="{% static 'images/default-image.png' %}" class="img-fluid mb-3" alt="Default Image">
+                        {% endif %}
+                        <h5 class="card-title">{{ recent_sold_property.property_name }}</h5>
+                        <p class="card-text">{{ recent_sold_property.property_description }}</p>
+                        <p class="card-text"><strong>Price:</strong> ${{ recent_sold_property.property_price }}</p>
+                        <p class="card-text d-flex justify-content-between align-items-center">
+                            <span><strong>Seller:</strong> {{ recent_sold_property.seller.user_name }}</span>
+                            <a href="{% url 'property_list' %}" class="text-info ms-auto">View All Properties</a>
+                        </p>
                     {% else %}
-                        <p>No recently sold properties available.</p>
+                        <p>No recent sold properties available.</p>
                     {% endif %}
                 </div>
             </div>

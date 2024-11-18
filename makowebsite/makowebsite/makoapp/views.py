@@ -119,7 +119,21 @@ def user_management_users_view(request):
 
 
 def user_management_dashboard_view(request):
-    return render(request, 'user_management_dashboard.html')
+    total_seller_accounts = User.objects.filter(role__role_name='Seller').count()
+    total_buyer_accounts = User.objects.filter(role__role_name='Buyer').count()
+    recent_property = Property.objects.filter(is_sold=False).order_by('-id').first()  # Most recent property
+    recent_sold_property = Property.objects.filter(is_sold=True).order_by('-id').first()  # Most recent sold property
+    total_properties = Property.objects.count()  # Total properties count
+    total_sold_properties = Property.objects.filter(is_sold=True).count()  # Total sold properties count
+
+    return render(request, 'user_management_dashboard.html', {
+        'total_seller_accounts': total_seller_accounts,
+        'total_buyer_accounts': total_buyer_accounts,
+        'recent_property': recent_property,
+        'recent_sold_property': recent_sold_property,
+        'total_properties': total_properties,  # Pass the total properties count
+        'total_sold_properties': total_sold_properties  # Pass the total sold properties count
+    })
 
 
 def property_list(request):
