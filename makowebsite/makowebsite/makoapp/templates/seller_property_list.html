@@ -45,10 +45,10 @@
                         <h5 class="card-title">{{ property.property_name }}</h5>
                         <p class="card-text">{{ property.property_description }}</p>
                         <p class="card-text"><strong>Price:</strong> ${{ property.property_price }}</p>
-                        <p class="card-text"><strong>Seller:</strong> {{ property.seller.username }}</p>
+                        <p class="card-text"><strong>Seller:</strong> {{ property.seller.username }} ({{property.seller.user_name}})</p>
                         {% if property.is_sold %}
                             <span class="badge badge-danger">Sold</span>
-                            <p class="card-text"><strong>Buyer:</strong> {{ property.buyer.username }}</p>
+                            <p class="card-text"><strong>Buyer:</strong> {{ property.buyer.username }} ({{property.buyer.user_name}})</p>
                         {% else %}
                             <span class="badge badge-success">Available</span>
                         {% endif %}

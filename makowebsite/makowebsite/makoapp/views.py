@@ -1,4 +1,4 @@
-# makowebsite/makowebsite/makoapp/views.py
+
 
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import login, authenticate, logout
@@ -12,6 +12,7 @@ from django.contrib.auth import views as auth_views
 from .forms import PropertyForm, DocumentForm, TransactionHistoryForm, CustomLoginForm
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from .forms import PropertyUpdateForm 
 
     
 def user_management(request):
@@ -135,7 +136,6 @@ def user_management_dashboard_view(request):
         'total_sold_properties': total_sold_properties  # Pass the total sold properties count
     })
 
-
 def property_list(request):
     query = request.GET.get('q', '')
     status = request.GET.get('status', '')
@@ -160,31 +160,54 @@ def property_detail(request, property_id):
     property = get_object_or_404(Property, id=property_id)
     return render(request, 'property_detail.html', {'property': property})
 
+
+
+
 @login_required
 def property_create(request):
+    form = PropertyForm(request.POST or None, request.FILES or None)
+
     if request.method == 'POST':
-        form = PropertyForm(request.POST, request.FILES)
         if form.is_valid():
             property = form.save(commit=False)  # Create a Property instance but don't save it yet
             property.seller = request.user      # Assign the current user as the seller
+            
+            # Set the buyer based on the form input
+            property.buyer = form.cleaned_data.get('buyer')  # Assign the selected buyer
+            
+            # Save the property instance
             property.save()                     # Now save the instance
             return redirect('seller_property_list')  # Redirect to the seller's property list
-    else:
-        form = PropertyForm()
+
     return render(request, 'property_form.html', {'form': form})
+
+
 
 
 @login_required
 def property_edit(request, property_id):
-    property = get_object_or_404(Property, id=property_id, seller=request.user)
+    property_instance = get_object_or_404(Property, id=property_id)
+    form = PropertyUpdateForm(request.POST or None, request.FILES or None, instance=property_instance)
+
     if request.method == 'POST':
-        form = PropertyForm(request.POST, request.FILES, instance=property)
         if form.is_valid():
-            form.save()
-            return redirect('seller_property_list')
-    else:
-        form = PropertyForm(instance=property)
-    return render(request, 'property_form.html', {'form': form})
+            updated_property = form.save(commit=False)  # Create a Property instance but don't save it yet
+            updated_property.seller = property_instance.seller  # Keep the original seller
+            
+            # Set the property status based on the form input
+            updated_property.is_sold = form.cleaned_data.get('is_sold') == 'True'  # Set is_sold based on dropdown
+            
+            # Set the buyer based on the form input
+            updated_property.buyer = form.cleaned_data.get('buyer')  # Assign the selected buyer
+            
+            # Clear the buyer information if the property is marked as unsold
+            if not updated_property.is_sold:
+                updated_property.buyer = None  # Disassociate the buyer from the property
+            
+            updated_property.save()  # Now save the instance
+            return redirect('seller_property_list')  # Redirect to the seller's property list
+
+    return render(request, 'property_update_seller.html', {'form': form, 'property': property_instance})
 
 
 @login_required
@@ -298,3 +321,14 @@ def delete_document_view(request, document_id):
         document.delete()
         return redirect('property_documents', property_id=property_id)
     return render(request, 'delete_document.html', {'document': document})
+ 
+
+
+@login_required
+def buyer_property_list(request):
+    if request.user.is_authenticated:
+        properties = Property.objects.filter(buyer=request.user)  # Assuming you have a buyer field in Property
+    else:
+        properties = None
+
+    return render(request, 'buyer_properties.html', {'properties': properties})

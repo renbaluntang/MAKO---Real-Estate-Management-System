@@ -18,7 +18,7 @@
                 <div class="col-md-6">
                     <p class="card-text">{{ property.property_description }}</p>
                     <p class="card-text"><strong>Price:</strong> ${{ property.property_price }}</p>
-                    <p class="card-text"><strong>Seller:</strong> {{ property.seller.username }}</p>
+                    <p class="card-text"><strong>Seller:</strong> {{ property.seller.user_name }}</p>
                     {% if property.buyer %}
                         <p class="card-text"><strong>Buyer:</strong> {{ property.buyer.user_name }} </p>
                     {% endif %}

@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from . import views 
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
@@ -33,4 +33,7 @@ urlpatterns = [
     path('transactions/', views.transaction_list, name='transaction_list'),
     path('seller_properties/', views.seller_property_list, name='seller_property_list'),
     path('property_buy/<int:property_id>/', views.property_buy, name='property_buy'),
+    
+    path('buyer_properties/', views.buyer_property_list, name='buyer_property_list'),
+
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,40 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}My Properties{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="mb-4 text-center">My Properties</h1>
+
+    {% if properties %}
+        <div class="row">
+            {% for property in properties %}
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-sm">
+                    {% if property.property_image %}
+                        <img src="{{ property.property_image.url }}" class="card-img-top" alt="{{ property.property_name }}">
+                    {% else %}
+                        <img src="{% static 'images/default-image.png' %}" class="card-img-top" alt="Default Image">
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{ property.property_name }}</h5>
+                        <p class="card-text">{{ property.property_description }}</p>
+                        <p class="card-text"><strong>Price:</strong> ${{ property.property_price }}</p>
+                        <p class="card-text"><strong>Seller:</strong> {{ property.seller.user_name }}</p>
+                        <div class="mt-3">
+                            <a href="{% url 'property_detail' property.id %}" class="btn btn-primary mt-3">View Details</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            You have no properties listed.
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

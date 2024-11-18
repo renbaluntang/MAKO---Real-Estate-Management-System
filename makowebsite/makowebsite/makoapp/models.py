@@ -28,6 +28,7 @@ class User(AbstractUser):
     
     def is_seller(self):
         return self.role and self.role.role_name == 'Seller' 
+    pass
 
 
 

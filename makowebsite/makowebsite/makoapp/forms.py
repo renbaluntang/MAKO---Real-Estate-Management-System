@@ -1,5 +1,6 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.contrib.auth.models import User
 from .models import User, Role, Property, Document, TransactionHistory
 
 
@@ -149,22 +150,64 @@ class UserUpdateForm(forms.ModelForm):
 
         return cleaned_data
     
+class PropertyUpdateForm(forms.ModelForm):
+    PROPERTY_STATUS_CHOICES = [
+        (False, 'Unsold'),
+        (True, 'Sold'),
+    ]
     
-    from django import forms
-from .models import Property, Document, TransactionHistory
+    is_sold = forms.ChoiceField(
+        choices=PROPERTY_STATUS_CHOICES, 
+        widget=forms.Select(attrs={'class': 'form-control'}), 
+        required=False
+    )
+    
+    buyer = forms.ModelChoiceField(
+        queryset=User.objects.all(),  # Use the custom User model
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        label="Buyer"
+    )
 
-class PropertyForm(forms.ModelForm):
     class Meta:
         model = Property
-        fields = ['property_name', 'property_description', 'property_price', 'property_image', 'seller']
+        fields = ['property_name', 'property_description', 'property_price', 'property_image', 'is_sold', 'buyer']
         widgets = {
             'property_name': forms.TextInput(attrs={'class': 'form-control'}),
             'property_description': forms.TextInput(attrs={'class': 'form-control'}),
             'property_price': forms.NumberInput(attrs={'class': 'form-control'}),
             'property_image': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
-            'seller': forms.Select(attrs={'class': 'form-control'}),
         }
-        
+
+
+
+class PropertyForm(forms.ModelForm):
+    buyer = forms.ModelChoiceField(
+        queryset=User.objects.all(), 
+        required=False,
+        widget=forms.Select(attrs={'class': 'form-control'}),
+        label="Buyer"
+    )
+
+    class Meta:
+        model = Property
+        fields = ['property_name', 'property_description', 'property_price', 'property_image', 'buyer']  # Exclude seller
+        widgets = {
+            'property_name': forms.TextInput(attrs={'class': 'form-control'}),
+            'property_description': forms.TextInput(attrs={'class': 'form-control'}),
+            'property_price': forms.NumberInput(attrs={'class': 'form-control'}),
+            'property_image': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.seller = kwargs.pop('seller', None)  # Get the seller from kwargs
+        super(PropertyForm, self).__init__(*args, **kwargs)
+        if self.seller:
+            self.fields['seller'] = forms.ModelChoiceField(
+                queryset=User.objects.filter(id=self.seller.id),  # Set the seller to the current user
+                initial=self.seller,
+                widget=forms.HiddenInput()  # Optionally hide the seller field
+            )
 
 class TransactionHistoryForm(forms.ModelForm):
     class Meta:

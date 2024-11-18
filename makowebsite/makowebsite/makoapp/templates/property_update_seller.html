@@ -1,11 +1,11 @@
 {% extends 'base.html' %}
 
-{% block title %}{% if form.instance.pk %}Edit{% else %}Add{% endif %} Property{% endblock %}
+{% block title %}Edit Property{% endblock %}
 
 {% block content %}
 <div class="container mt-5 mb-5">
     <div class="property-form-container">
-        <h1 class="text-center mb-4">{% if form.instance.pk %}Edit{% else %}Add{% endif %} Property</h1>
+        <h1 class="text-center mb-4">Edit Property</h1>
         <div class="row justify-content-center">
             <div class="col-md-8">
                 <form method="post" enctype="multipart/form-data" class="update-property-form mt-4">
@@ -18,7 +18,7 @@
                     {% endif %}
                     
                     <div class="form-group">
-                        {{ form.as_p }}
+                        {{ form.as_p }}  <!-- Render the entire form as paragraphs -->
                     </div>
 
                     <div class="text-center mt-4">
