@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load custom_filters %}
+
+{% block title %}Confirm Purchase{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Confirm Purchase for {{ property.property_name }}</h1>
+
+    <div class="card mb-4">
+        <div class="card-header">
+            <h5 class="mb-0">Property Details</h5>
+        </div>
+        <div class="card-body">
+            <h5 class="card-title">{{ property.property_name }}</h5>
+            <p class="card-text"><strong>Description:</strong> {{ property.property_description }}</p>
+            <p class="card-text"><strong>Price:</strong> ${{ property.property_price }}</p>
+            {% if property.property_image %}
+                <img src="{{ property.property_image.url }}" class="img-fluid rounded" alt="{{ property.property_name }}">
+            {% else %}
+                <p>No image available for this property.</p>
+            {% endif %}
+        </div>
+    </div>
+
+    <form method="post" class="mt-4">
+        {% csrf_token %}
+        
+        <div class="text-center mt-4">
+            <p>You are about to purchase this property as {{ request.user.username }}.</p>
+            <button type="submit" class="btn btn-primary btn-lg">Confirm Purchase</button>
+            <a href="{% url 'property_detail' property.id %}" class="btn btn-secondary btn-lg ml-2">Cancel</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

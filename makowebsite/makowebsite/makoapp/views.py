@@ -6,13 +6,12 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from .forms import UserRegistrationForm, UpdateUserRoleForm, UserUpdateForm
+from .forms import UserRegistrationForm, UpdateUserRoleForm, UserUpdateForm,PropertyUpdateForm, PurchaseConfirmationForm
 from .models import Role, User,Property, TransactionHistory, Document
 from django.contrib.auth import views as auth_views
 from .forms import PropertyForm, DocumentForm, TransactionHistoryForm, CustomLoginForm
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
-from .forms import PropertyUpdateForm 
 
     
 def user_management(request):
@@ -54,7 +53,6 @@ def login_view(request):
         form = CustomLoginForm()  # Initialize the form for GET requests
 
     return render(request, 'login.html', {'form': form, 'next': request.GET.get('next', '')})
-
 
 @login_required
 def profile_view(request, user_id):
@@ -255,32 +253,45 @@ def seller_property_list(request):
     return render(request, 'seller_property_list.html', {'properties': properties, 'query': query})
 
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib import messages
+from .models import Property, TransactionHistory, Document
+from django.utils import timezone
+
 @login_required
 def property_buy(request, property_id):
-    property = get_object_or_404(Property, id=property_id, is_sold=False)
+    property_instance = get_object_or_404(Property, id=property_id, is_sold=False)
 
-    # Assign the buyer and mark the property as sold
-    property.buyer = request.user
-    property.is_sold = True
-    property.save()
+    if request.method == 'POST':
+        # Use the currently logged-in user
+        user = request.user
 
-    # Create a transaction history record
-    TransactionHistory.objects.create(
-        transaction_date=timezone.now(),
-        transaction_desc=f"Property {property.property_name} purchased",
-        seller=property.seller,
-        buyer=request.user,
-        property=property
-    )
+        # Assign the buyer and mark the property as sold
+        property_instance.buyer = user
+        property_instance.is_sold = True
+        property_instance.save()
 
-    # Update or create a document for the transaction
-    Document.objects.update_or_create(
-        property=property,
-        defaults={'buyer': request.user, 'seller': property.seller}
-    )
+        # Create a transaction history record
+        TransactionHistory.objects.create(
+            transaction_date=timezone.now(),
+            transaction_desc=f"Property {property_instance.property_name} purchased",
+            seller=property_instance.seller,
+            buyer=user,
+            property=property_instance
+        )
 
-    # Redirect to a confirmation page or the property detail page
-    return redirect('property_detail', property_id=property.id)
+        # Update or create a document for the transaction
+        Document.objects.update_or_create(
+            property=property_instance,
+            defaults={'buyer': user, 'seller': property_instance.seller}
+        )
+
+        messages.success(request, 'Purchase successful!')
+        return redirect('property_detail', property_id=property_instance.id)  # Redirect to property detail page
+
+    return render(request, 'confirm_purchase.html', {'property': property_instance})
+
 
 def property_documents(request, property_id):
     property = get_object_or_404(Property, id=property_id)
@@ -332,3 +343,4 @@ def buyer_property_list(request):
         properties = None
 
     return render(request, 'buyer_properties.html', {'properties': properties})
+

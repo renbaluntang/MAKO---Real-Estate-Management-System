@@ -180,6 +180,36 @@ class PropertyUpdateForm(forms.ModelForm):
         }
 
 
+class PurchaseConfirmationForm(forms.Form):
+    name = forms.CharField(max_length=100, label='Name', required=True)
+    email = forms.EmailField(label='Email', required=True)
+    address = forms.CharField(max_length=255, label='Address', required=True)
+    phone = forms.CharField(max_length=15, label='Phone Number', required=True)
+    
+    # Dummy field (not required)
+    dummy_field = forms.CharField(max_length=100, label='Dummy Field', required=False, widget=forms.TextInput(attrs={'disabled': 'disabled'}))
+
+    username = forms.CharField(max_length=150, label='Username', required=True)
+    password1 = forms.CharField(widget=forms.PasswordInput, label='Password', required=True)
+    password2 = forms.CharField(widget=forms.PasswordInput, label='Confirm Password', required=True)
+
+    def clean(self):
+        cleaned_data = super().clean()
+        password1 = cleaned_data.get("password1")
+        password2 = cleaned_data.get("password2")
+
+        if password1 and password2 and password1 != password2:
+            self.add_error('password2', "Passwords do not match.")
+
+    def clean_email(self):
+        email = self.cleaned_data.get('email')
+        # Add any custom validation logic for email here
+        return email
+
+    def clean_phone(self):
+        phone = self.cleaned_data.get('phone')
+        # Add any custom validation logic for phone here
+        return phone
 
 class PropertyForm(forms.ModelForm):
     buyer = forms.ModelChoiceField(
