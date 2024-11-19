@@ -35,5 +35,10 @@ urlpatterns = [
     path('property_buy/<int:property_id>/', views.property_buy, name='property_buy'),
     
     path('buyer_properties/', views.buyer_property_list, name='buyer_property_list'),
+    
+    path('about/', views.about_view, name='about'),
+    path('team/', views.team_view, name='team'),
+    path('findseller/', views.findseller_view, name='findseller'),
+    
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

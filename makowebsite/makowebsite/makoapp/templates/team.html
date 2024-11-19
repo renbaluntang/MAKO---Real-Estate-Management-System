@@ -1,0 +1,43 @@
+{% extends 'base.html' %} 
+{% block title %}Home Page{% endblock %} 
+{% block content %} 
+{% load static %}
+
+<div class='container'>
+<div class='team-section'>
+    <h1>Our Team</h1>
+    <p>Meet the team behind our company.<br>
+    We are looking a team of developers <br>
+    to help us build our website. haha<br>
+    </p>
+
+
+    <div class='team-container'>
+        <div class='team-card'>
+            <div class='crop-container'>
+                <img src="{% static 'images/cg.png' %}" alt="Cg M. Fernandez"/>
+            </div>
+            <h5>Cg M. Fernandez</h5>  
+            <p>CEO</p>
+        </div>
+
+        <div class='team-card'>
+            <div class='crop-container'>
+                <img src="{% static 'images/alon.jpg' %}" alt="Mike Francis B. Alon"/>
+            </div>
+            <h5>Mike Francis B. Alon</h5>  
+            <p>Financer</p>
+        </div>
+
+        <div class='team-card'>
+            <div class='crop-container'>
+                <img src="{% static 'images/rendolf.png' %}" alt="Rendolf Baluntang"/>
+            </div>
+            <h5>Rendolf Baluntang</h5>  
+            <p>UI/UX</p>
+        </div>
+    </div>
+</div>
+</div>
+
+{% endblock %}

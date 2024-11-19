@@ -28,6 +28,9 @@
             {% endif %}
 
             <a href="{% url 'property_list' %}">Property List</a>
+            <a href="{% url 'about' %}">About Us</a>
+            <a href="{% url 'findseller' %}">Find Agent</a>
+            <a href="{% url 'team' %}">Team</a>
 
             {% if user.is_authenticated and user.is_admin %}
                 <a href="{% url 'transaction_list' %}">Transactions</a>

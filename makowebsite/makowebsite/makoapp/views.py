@@ -302,6 +302,15 @@ def property_documents(request, property_id):
         if form.is_valid():
             document = form.save(commit=False)
             document.property = property
+            document.user = request.user  # Automatically assign the logged-in user
+            
+            # Assign the buyer if exists
+            if property.buyer:
+                document.buyer = property.buyer
+            
+            # Assign the seller
+            document.seller = property.seller  # Assign the seller from the property
+            
             document.save()
             return redirect('property_documents', property_id=property.id)
     else:
@@ -312,7 +321,6 @@ def property_documents(request, property_id):
         'documents': documents,
         'form': form
     })
-    
     
 def edit_document_view(request, document_id):
     document = get_object_or_404(Document, id=document_id)
@@ -343,4 +351,14 @@ def buyer_property_list(request):
         properties = None
 
     return render(request, 'buyer_properties.html', {'properties': properties})
+
+
+def about_view(request):
+    return render(request, 'about.html')
+
+def team_view(request):
+    return render(request, 'team.html')
+
+def findseller_view(request):
+    return render(request, 'findseller.html')
 

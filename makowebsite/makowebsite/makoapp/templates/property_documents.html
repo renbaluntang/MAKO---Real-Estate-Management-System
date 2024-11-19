@@ -40,6 +40,9 @@
                         {% if document.documentation_image %}
                             <img src="{{ document.documentation_image.url }}" class="img-thumbnail mt-2" style="max-width: 50px;" alt="{{ document.documentation_type }}">
                         {% endif %}
+                        {% if document.buyer %}
+                            <p class="mt-2"><strong>Buyer:</strong> {{ document.buyer.user_name }}</p>
+                        {% endif %}
                     </div>
                     <div>
                         <a href="{% url 'document_edit' document.id %}" class="btn btn-warning btn-sm">Edit</a>
