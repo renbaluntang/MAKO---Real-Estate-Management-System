@@ -21,6 +21,8 @@
             {% if user.is_authenticated and user.is_admin %}
                 <a href="{% url 'user_management_dashboard' %}">Dashboard</a>
                 <a href="{% url 'user_management_users' %}">Users</a>
+                <a href="{% url 'user_management_papers' %}">All Documents</a>
+                <a href="{% url 'transaction_list' %}">Transactions</a>
             {% endif %}
 
             {% if user.is_authenticated and user.is_seller %}
@@ -31,10 +33,6 @@
             <a href="{% url 'about' %}">About Us</a>
             <a href="{% url 'findseller' %}">Find Agent</a>
             <a href="{% url 'team' %}">Team</a>
-
-            {% if user.is_authenticated and user.is_admin %}
-                <a href="{% url 'transaction_list' %}">Transactions</a>
-            {% endif %}
 
             {% if user.is_authenticated and user.is_seller %}
                 <a href="{% url 'seller_property_list' %}">My Properties</a>

@@ -12,6 +12,7 @@ from django.contrib.auth import views as auth_views
 from .forms import PropertyForm, DocumentForm, TransactionHistoryForm, CustomLoginForm
 from django.contrib.auth.decorators import login_required
 from django.utils import timezone
+from django.db.models import Q
 
     
 def user_management(request):
@@ -117,6 +118,7 @@ def user_management_users_view(request):
     return render(request, 'user_management_users.html', {'users': users, 'search_query': search_query, 'role_filter': role_filter})
 
 
+@login_required
 def user_management_dashboard_view(request):
     total_seller_accounts = User.objects.filter(role__role_name='Seller').count()
     total_buyer_accounts = User.objects.filter(role__role_name='Buyer').count()
@@ -124,14 +126,36 @@ def user_management_dashboard_view(request):
     recent_sold_property = Property.objects.filter(is_sold=True).order_by('-id').first()  # Most recent sold property
     total_properties = Property.objects.count()  # Total properties count
     total_sold_properties = Property.objects.filter(is_sold=True).count()  # Total sold properties count
-
+    available_properties_count = Property.objects.filter(is_sold=False).count()  # Count of available properties
+ 
     return render(request, 'user_management_dashboard.html', {
         'total_seller_accounts': total_seller_accounts,
         'total_buyer_accounts': total_buyer_accounts,
         'recent_property': recent_property,
         'recent_sold_property': recent_sold_property,
-        'total_properties': total_properties,  # Pass the total properties count
-        'total_sold_properties': total_sold_properties  # Pass the total sold properties count
+        'total_properties': total_properties,
+        'total_sold_properties': total_sold_properties,
+        'available_properties_count': available_properties_count  # Pass the available properties count
+    })
+ 
+@login_required
+def user_management_papers_view(request):
+    # Get the search query from the request
+    search_query = request.GET.get('q', '')
+ 
+    # Fetch documents related to properties that have documents
+    documents = Document.objects.select_related('property', 'seller', 'buyer').filter(property__isnull=False)
+ 
+    # Apply search filter if there is a search query
+    if search_query:
+        documents = documents.filter(
+            Q(documentation_type__icontains=search_query) |
+            Q(property__property_name__icontains=search_query)
+        )
+ 
+    return render(request, 'user_management_papers.html', {
+        'documents': documents,  # Pass the documents to the template
+        'search_query': search_query  # Pass the search query for the input field
     })
 
 def property_list(request):
@@ -226,8 +250,21 @@ def document_list_view(request):
 
 @login_required
 def transaction_list(request):
-    transactions = TransactionHistory.objects.all()
-    return render(request, 'transaction_list.html', {'transactions': transactions})
+    # Get the search query from the request
+    search_query = request.GET.get('q', '')
+ 
+    # Fetch all transactions
+    transactions = TransactionHistory.objects.select_related('property', 'seller', 'buyer')
+ 
+    # Apply search filter if there is a search query
+    if search_query:
+        transactions = transactions.filter(
+            Q(property__property_name__icontains=search_query)  # Filter by property name
+        )
+ 
+    return render(request, 'transaction_list.html', {
+        'transactions': transactions,  # Pass the filtered transactions to the template
+    })
 
 
 

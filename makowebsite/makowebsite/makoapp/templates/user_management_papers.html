@@ -1,0 +1,51 @@
+{% extends 'base.html' %}
+ 
+{% block title %}All Documents{% endblock %}
+ 
+{% block content %}
+{% if user.role.role_name != 'Admin' %}
+    <div class="alert alert-danger" role="alert">
+        You do not have permission to view this page.
+    </div>
+{% else %}
+    <h1 class="text-center">Documents</h1>
+    <form method="get" action="{% url 'user_management_papers' %}" class="mb-4">
+        <div class="input-group mb-3">
+            <input type="text" name="q" class="form-control" placeholder="Search documents..." value="{{ request.GET.q }}">
+            <div class="input-group-append">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </div>
+    </form>
+    {% if documents %}
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Document Type</th>  <!-- Document Type -->
+                    <th>Property Name</th>
+                    <th>Property Description</th>
+                    <th>Seller</th>  <!-- Display Seller -->
+                    <th>Buyer</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for document in documents %}
+                    {% if document.documentation_type %}
+                        <tr>
+                            <td>{{ document.documentation_type }}</td>  <!-- Fetching documentation type -->
+                            <td>{{ document.property.property_name }}</td>
+                            <td>{{ document.property.property_description }}</td>  <!-- Property Description -->
+                            <td>{{ document.seller.user_name }}</td>  <!-- Display Seller -->
+                            <td>{{ document.buyer.user_name }}</td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+            </tbody>
+        </table>
+    {% else %}
+        <div class="alert alert-info" role="alert">
+            No available documents.
+        </div>
+    {% endif %}
+{% endif %}
+{% endblock %}

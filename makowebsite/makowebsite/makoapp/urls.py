@@ -3,6 +3,8 @@ from . import views
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
+from .views import user_management_papers_view
+
 urlpatterns = [
     path('', views.home, name='home'),
     path('login/', views.login_view, name='login'),
@@ -16,7 +18,8 @@ urlpatterns = [
     
     path('user_management_users/', views.user_management_users_view, name='user_management_users'),
     path('user_management_dashboard/', views.user_management_dashboard_view, name='user_management_dashboard'),
-    
+    path('user_management_papers/', user_management_papers_view, name='user_management_papers'),
+
     path('properties/', views.property_list, name='property_list'),
     path('properties/<int:property_id>/', views.property_detail, name='property_detail'),
     path('properties/add/', views.property_create, name='property_create'),

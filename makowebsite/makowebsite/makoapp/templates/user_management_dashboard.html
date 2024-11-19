@@ -1,17 +1,17 @@
 {% extends 'base.html' %}
-
+ 
 {% load static %}
-
-{% block title %}User Management Dashboard{% endblock %}
-
+ 
+{% block title %}Real Estate Dashboard{% endblock %}
+ 
 {% block content %}
 <div class="container">
-    <h1 class="text-center">User Management Dashboard</h1>
-    <p class="text-center">Welcome to the User Management Dashboard. Here you can manage users and their roles.</p>
-
+    <h1 class="text-center">Real Estate Dashboard</h1>
+    <p class="text-center">Welcome to Your Property Management Dashboard</p>
+ 
     <div class="row">
         <div class="col-md-6 mb-4">
-            <div class="card text-white bg-primary">
+            <div class="card text-white" style="background-color: #4778a9;">
                 <div class="card-body">
                     <h5 class="card-title">Seller Accounts Total:</h5>
                     <h2 class="card-text">{{ total_seller_accounts }}</h2>
@@ -19,7 +19,7 @@
             </div>
         </div>
         <div class="col-md-6 mb-4">
-            <div class="card text-white bg-primary">
+            <div class="card text-white" style="background-color: #4778a9;">
                 <div class="card-body">
                     <h5 class="card-title">Buyer Accounts Total:</h5>
                     <h2 class="card-text">{{ total_buyer_accounts }}</h2>
@@ -27,7 +27,7 @@
             </div>
         </div>
     </div>
-
+ 
     <div class="row">
         <div class="col-md-4 mb-4">  <!-- Most Recently Added Property Card -->
             <div class="card" style="width: 100%;">
@@ -52,21 +52,26 @@
                 </div>
             </div>
         </div>
-    
+   
         <div class="col-md-4 mb-4">  <!-- Total Properties Count Container -->
             <div class="card" style="width: 100%;">
-                <div class="card-body text-center text-white bg-primary">  <!-- Center the text -->
+                <div class="card-body text-center text-white" style="background-color: #4778a9; margin-bottom: 10px;">  <!-- Center the text -->
                     <h5 class="card-title">Total Properties:</h5>
                     <h2 class="card-text">{{ total_properties }}</h2>  <!-- Display total properties count -->
                 </div>
                 <hr class="my-0">  <!-- Divider line -->
-                <div class="card-body text-center text-white bg-primary">  <!-- Center the text -->
+                <div class="card-body text-center text-white" style="background-color: #4778a9; margin-bottom: 10px;">  <!-- Center the text -->
+                    <h5 class="card-title">Available Properties:</h5>
+                    <h2 class="card-text">{{ available_properties_count }}</h2>  <!-- Display available properties count -->
+                </div>
+                <hr class="my-0">  <!-- Divider line -->
+                <div class="card-body text-center text-white" style="background-color: #4778a9;">  <!-- Center the text -->
                     <h5 class="card-title">Total Sold Properties:</h5>
                     <h2 class="card-text">{{ total_sold_properties }}</h2>  <!-- Display total sold properties count -->
                 </div>
             </div>
         </div>
-    
+   
         <div class="col-md-4 mb-4">  <!-- Most Recently Sold Property Card -->
             <div class="card" style="width: 100%;">
                 <div class="card-body">
@@ -91,7 +96,7 @@
             </div>
         </div>
     </div>
-
+ 
     <div class="text-center">
         <a href="{% url 'user_management_users' %}" class="btn btn-primary">Manage Users</a>
     </div>
