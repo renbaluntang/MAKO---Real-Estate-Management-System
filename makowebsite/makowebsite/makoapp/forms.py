@@ -1,7 +1,7 @@
 from django import forms
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
 from django.contrib.auth.models import User
-from .models import User, Role, Property, Document, TransactionHistory
+from .models import User, Role, Property, Document, TransactionHistory, PropertyImage
 
 
 class CustomLoginForm(AuthenticationForm):
@@ -79,6 +79,11 @@ class UserRegistrationForm(UserCreationForm):
                 'password_mismatch': 'The two password fields didn’t match.',
             },
         }
+
+    def __init__(self, *args, **kwargs):
+        super(UserRegistrationForm, self).__init__(*args, **kwargs)
+        # Exclude the 'Admin' role from the choices
+        self.fields['role'].queryset = Role.objects.exclude(role_name='Admin')
 
     def clean(self):
         cleaned_data = super().clean()
@@ -253,3 +258,8 @@ class DocumentForm(forms.ModelForm):
             'documentation_type': forms.TextInput(attrs={'class': 'form-control'}),
             'documentation_image': forms.ClearableFileInput(attrs={'class': 'form-control-file'}),
         }
+        
+class PropertyImageForm(forms.ModelForm):
+    class Meta:
+        model = PropertyImage
+        fields = ['image']

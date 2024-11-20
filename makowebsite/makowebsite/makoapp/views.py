@@ -6,7 +6,7 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.urls import reverse
-from .forms import UserRegistrationForm, UpdateUserRoleForm, UserUpdateForm,PropertyUpdateForm, PurchaseConfirmationForm
+from .forms import UserRegistrationForm, UpdateUserRoleForm, UserUpdateForm,PropertyUpdateForm, PurchaseConfirmationForm, PropertyImageForm
 from .models import Role, User,Property, TransactionHistory, Document
 from django.contrib.auth import views as auth_views
 from .forms import PropertyForm, DocumentForm, TransactionHistoryForm, CustomLoginForm
@@ -14,13 +14,22 @@ from django.contrib.auth.decorators import login_required
 from django.utils import timezone
 from django.db.models import Q
 
+from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404, redirect, render
+from django.contrib import messages
+from .models import Property, TransactionHistory, Document, PropertyImage
+from django.utils import timezone
+
+
     
 def user_management(request):
     users = User.objects.all()
     return render(request, 'user_management_users.html', {'users': users})
 
 def home(request):
-    return render(request, 'home.html')
+    properties = Property.objects.all()  # Fetch all properties
+    properties_list = list(properties)  # Convert to list for slicing
+    return render(request, 'home.html', {'properties': [properties_list[i:i + 4] for i in range(0, len(properties_list), 4)]})
 
 def register_view(request):
     if request.method == 'POST':
@@ -117,6 +126,16 @@ def user_management_users_view(request):
 
     return render(request, 'user_management_users.html', {'users': users, 'search_query': search_query, 'role_filter': role_filter})
 
+def edit_user_view(request, user_id):
+    user = get_object_or_404(User, id=user_id)  # Fetch the user to edit
+    if request.method == 'POST':
+        user.user_name = request.POST.get('user_name')  # Update user name
+        user.user_email = request.POST.get('user_email')  # Update user email
+        user.user_address = request.POST.get('user_address')  # Update user address
+        user.save()  # Save the changes
+        messages.success(request, 'User details updated successfully.')
+        return redirect('user_management_users')  # Redirect to the user management page
+    return render(request, 'edit_user.html', {'user': user})  # Render the edit form
 
 @login_required
 def user_management_dashboard_view(request):
@@ -177,13 +196,28 @@ def property_list(request):
 
     return render(request, 'property_list.html', {'properties': properties, 'query': query})
 
-@login_required
 def property_detail(request, property_id):
     property = get_object_or_404(Property, id=property_id)
-    return render(request, 'property_detail.html', {'property': property})
+    images = property.images.all()  # Fetch related images
+    return render(request, 'property_detail.html', {
+        'property': property,
+        'images': images  # Pass images to the template
+    })
 
 
-
+@login_required
+def upload_property_images(request, property_id):
+    property = get_object_or_404(Property, id=property_id)
+    if request.method == 'POST':
+        form = PropertyImageForm(request.POST, request.FILES)
+        if form.is_valid():
+            property_image = form.save(commit=False)
+            property_image.property = property  # Associate the image with the property
+            property_image.save()
+            return redirect('property_detail', property_id=property.id)
+    else:
+        form = PropertyImageForm()  # No need to pass property in the form
+    return render(request, 'upload_property_images.html', {'form': form, 'property': property})
 
 @login_required
 def property_create(request):
@@ -290,11 +324,6 @@ def seller_property_list(request):
     return render(request, 'seller_property_list.html', {'properties': properties, 'query': query})
 
 
-from django.contrib.auth.decorators import login_required
-from django.shortcuts import get_object_or_404, redirect, render
-from django.contrib import messages
-from .models import Property, TransactionHistory, Document
-from django.utils import timezone
 
 @login_required
 def property_buy(request, property_id):
@@ -399,3 +428,7 @@ def team_view(request):
 def findseller_view(request):
     return render(request, 'findseller.html')
 
+@login_required
+def findseller_view(request):
+    sellers = User.objects.filter(role__role_name='Seller')
+    return render(request, 'findseller.html', {'sellers': sellers})

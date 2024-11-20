@@ -69,3 +69,10 @@ class TransactionHistory(models.Model):
 
     def __str__(self):
         return f"Transaction on {self.transaction_date}"
+    
+class PropertyImage(models.Model):
+    property = models.ForeignKey(Property, on_delete=models.CASCADE, related_name='images')
+    image = models.ImageField(upload_to='property_images/', null=True, blank=True)
+
+    def __str__(self):
+        return f"Image for {self.property.property_name}"

@@ -38,9 +38,7 @@
                 <div class="card-body">
                     <h5 class="card-title">{{ property.property_name }}</h5>
                     <p class="card-text">{{ property.property_description }}</p>
-                    <p class="card-text"><strong>Price:</strong> ${{ property.property_price }}</p>
-                    <p class="card-text"><strong>Seller:</strong> {{ property.seller.user_name }}</p>
-                    {% if not property.is_sold %}
+                    <p class="card-text price-red">${{ property.property_price }}</p>                    {% if not property.is_sold %}
                         <a href="{% url 'property_buy' property.id %}" class="btn btn-success">Buy Now</a>
                     {% else %}
                         <span class="badge badge-secondary">Sold</span>

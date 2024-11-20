@@ -44,8 +44,7 @@
                     <div class="card-body">
                         <h5 class="card-title">{{ property.property_name }}</h5>
                         <p class="card-text">{{ property.property_description }}</p>
-                        <p class="card-text"><strong>Price:</strong> ${{ property.property_price }}</p>
-                        <p class="card-text"><strong>Seller:</strong> {{ property.seller.username }} ({{property.seller.user_name}})</p>
+                        <p class="card-text price-red">${{ property.property_price }}</p>                        <p class="card-text"><strong>Seller:</strong> {{ property.seller.username }} ({{property.seller.user_name}})</p>
                         {% if property.is_sold %}
                             <span class="badge badge-danger">Sold</span>
                             <p class="card-text"><strong>Buyer:</strong> {{ property.buyer.username }} ({{property.buyer.user_name}})</p>
@@ -55,7 +54,7 @@
                         <div class="mt-3">
                             <a href="{% url 'property_detail' property.id %}" class="btn btn-primary">View Details</a>
                             {% if user == property.seller %}
-                                <a href="{% url 'property_edit' property.id %}" class="btn btn-warning">Edit</a>
+                                <a href="{% url 'property_edit' property.id %}" class="btn btn-secondary">Edit</a>
                                 <a href="{% url 'property_delete' property.id %}" class="btn btn-danger">Delete</a>
                             {% endif %}
                         </div>

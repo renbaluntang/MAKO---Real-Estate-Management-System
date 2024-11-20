@@ -1,43 +1,68 @@
 {% extends 'base.html' %} 
-{% block title %}Home Page{% endblock %} 
-{% block content %} 
 {% load static %}
 
+{% block title %}Our Team{% endblock %} 
+
+{% block content %} 
 <div class='container'>
-<div class='team-section'>
-    <h1>Our Team</h1>
-    <p>Meet the team behind our company.<br>
-    We are looking a team of developers <br>
-    to help us build our website. haha<br>
-    </p>
+    <div class='team-section'>
+        <h1>Our Team</h1>
+        <p>Meet the team behind our company.<br>
+        We are looking for a team of developers <br>
+        to help us build our website. Join us!<br>
+        </p>
 
-
-    <div class='team-container'>
-        <div class='team-card'>
-            <div class='crop-container'>
-                <img src="{% static 'images/cg.png' %}" alt="Cg M. Fernandez"/>
+        <div class='team-container'>
+            <div class='team-card'>
+                <div class='crop-container'>
+                    <img src="{% static 'images/cg.png' %}" alt="Cg M. Fernandez"/>
+                </div>
+                <h5>Cg M. Fernandez</h5>  
+                <p>CEO</p>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/cg-m-fernandez" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://twitter.com/cg_fernandez" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/cg.fernandez" target="_blank"><i class="fab fa-facebook"></i></a> <!-- Facebook link -->
+                </div>
             </div>
-            <h5>Cg M. Fernandez</h5>  
-            <p>CEO</p>
-        </div>
 
-        <div class='team-card'>
-            <div class='crop-container'>
-                <img src="{% static 'images/alon.jpg' %}" alt="Mike Francis B. Alon"/>
+            <div class='team-card'>
+                <div class='crop-container'>
+                    <img src="{% static 'images/alon.jpg' %}" alt="Mike Francis B. Alon"/>
+                </div>
+                <h5>Mike Francis B. Alon</h5>  
+                <p>Financer</p>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/mike-francis-alon" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://twitter.com/mike_alon" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/mike.alon" target="_blank"><i class="fab fa-facebook"></i></a> <!-- Facebook link -->
+                </div>
             </div>
-            <h5>Mike Francis B. Alon</h5>  
-            <p>Financer</p>
-        </div>
 
-        <div class='team-card'>
-            <div class='crop-container'>
-                <img src="{% static 'images/rendolf.png' %}" alt="Rendolf Baluntang"/>
+            <div class='team-card'>
+                <div class='crop-container'>
+                    <img src="{% static 'images/rendolf.png' %}" alt="Rendolf Baluntang"/>
+                </div>
+                <h5>Rendolf Baluntang</h5>  
+                <p>UI/UX</p>
+                <div class="social-icons">
+                    <a href="https://www.linkedin.com/in/rendolf-baluntang" target="_blank"><i class="fab fa-linkedin"></i></a>
+                    <a href="https://twitter.com/rendolf_b" target="_blank"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.facebook.com/rendolf.baluntang" target="_blank"><i class="fab fa-facebook"></i></a> <!-- Facebook link -->
+                </div>
             </div>
-            <h5>Rendolf Baluntang</h5>  
-            <p>UI/UX</p>
         </div>
     </div>
-</div>
+    <br>
+    <div class='join-team-section'>
+        <h2>Join Our Team!</h2>
+        <p>Are you passionate about technology and development? We are always looking for talented individuals to join our team. If you think you have what it takes, we would love to hear from you!</p>
+        {% if user.is_authenticated %}
+            <a href="" class='btn btn-primary'>Apply Now</a> 
+        {% else %}
+            <p class="alert alert-warning">Please <a href="{% url 'login' %}">log in</a> to apply.</p>
+        {% endif %}
+    </div>
 </div>
 
 {% endblock %}

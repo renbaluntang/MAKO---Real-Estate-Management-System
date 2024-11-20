@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Find Sellers{% endblock %}
+
+{% block content %}
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Find Agent</h1>
+    <div class="row">
+        {% for seller in sellers %}
+        <div class="col-md-4 mb-4">
+            <div class="card">
+                <img src="{{ seller.user_image.url  }}" class="img-seller" alt="{{ seller.user_name }}" onerror="this.onerror=null; this.src='{% static 'images/default-profile.png' %}'">                <div class="card-body">
+                    <h5 class="card-title">{{ seller.user_name }}</h5>
+                    <p class="card-text"><strong>Email:</strong> {{ seller.user_email }}</p>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+            <p>No sellers found.</p>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

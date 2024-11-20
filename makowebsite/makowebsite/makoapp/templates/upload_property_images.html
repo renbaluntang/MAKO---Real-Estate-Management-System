@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% load static %}
+
+{% block title %}Upload images{% endblock %}
+{% block content %}
+<div class="container mt-5">
+    <h1>Upload Images for {{ property.property_name }}</h1>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="image">Image:</label>
+            {{ form.image }}  <!-- This will render the file input for the image -->
+            {% if form.image.errors %}
+                <div class="alert alert-danger">
+                    {{ form.image.errors }}
+                </div>
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-success">Upload Image</button>
+    </form>
+    <a href="{% url 'property_detail' property.id %}" class="btn btn-secondary mt-3">Back to Property Details</a>
+</div>
+{% endblock %}

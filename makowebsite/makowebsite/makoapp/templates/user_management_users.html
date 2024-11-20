@@ -3,17 +3,16 @@
 {% block title %}User Management{% endblock %}
  
 {% block content %}
-<div class="container-fluid">  <!-- Use container-fluid for full width -->
     <h1 class="text-center">Users List</h1>
     <form method="get" action="{% url 'user_management_users' %}" class="mb-4">
         <div class="input-group mb-3">
-            <input type="text" name="search" class="form-control" placeholder="Search users..." value="{{ search_query }}">
+            <input type="text" name="search" class="form-control" placeholder="Search users by name..." value="{{ search_query }}">
             <div class="input-group-append">
                 <button class="btn btn-primary" type="submit">Search</button>
             </div>
         </div>
     </form>
-    <div class="d-flex justify-content-between align-items-center mt-4">
+    <div class="d-flex justify-content-between align-items-center mt-1">
         <h2 class="mb-0">List of Users</h2>
         <form method="GET" action="" class="d-inline">
             <select name="role" class="form-control" style="display: inline-block; width: auto;">
@@ -25,7 +24,7 @@
         </form>
     </div>
     <div class="table-responsive">  <!-- Added responsive wrapper -->
-        <table class="table table-striped mt-4" style="width: 100%; margin: 0;">  <!-- Set table width to 100% and remove margin -->
+        <table class="table table-striped mt-4 table-left-align" style="width: 100%; margin: 0;">  <!-- Set table width to 100% and remove margin -->
             <thead>
                 <tr>
                     <th>Name</th>
@@ -54,6 +53,7 @@
                     </td>
                     <td>{{ user.user_address }}</td>
                     <td>
+                        <a href="{% url 'edit_user' user.id %}" class="btn btn-warning btn-sm">Edit</a>  <!-- Updated Edit button URL -->
                         <a href="#" class="btn btn-danger btn-sm">Delete</a>
                     </td>
                 </tr>
@@ -62,5 +62,5 @@
             </tbody>
         </table>
     </div>
-</div>
 {% endblock %}
+

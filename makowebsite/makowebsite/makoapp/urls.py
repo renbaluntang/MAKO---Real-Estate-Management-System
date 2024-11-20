@@ -19,6 +19,7 @@ urlpatterns = [
     path('user_management_users/', views.user_management_users_view, name='user_management_users'),
     path('user_management_dashboard/', views.user_management_dashboard_view, name='user_management_dashboard'),
     path('user_management_papers/', user_management_papers_view, name='user_management_papers'),
+    path('edit_user/<int:user_id>/', views.edit_user_view, name='edit_user'),  # Add this line
 
     path('properties/', views.property_list, name='property_list'),
     path('properties/<int:property_id>/', views.property_detail, name='property_detail'),
@@ -43,5 +44,7 @@ urlpatterns = [
     path('team/', views.team_view, name='team'),
     path('findseller/', views.findseller_view, name='findseller'),
     
+    path('property/<int:property_id>/upload_images/', views.upload_property_images, name='upload_property_images'),
+
 
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

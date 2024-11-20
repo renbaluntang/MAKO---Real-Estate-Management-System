@@ -9,7 +9,6 @@
 /* Importing Google Fonts */
 @import url("https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap");
 
- 
 /* Add your custom styles below */
 html, body {
   height: 100%;
@@ -479,6 +478,8 @@ footer a:hover {
   height: max-content;
   flex-direction: column;
   padding: 20px;
+  padding-left: 10%;
+  padding-right: 10%;
   flex-wrap: wrap;
   background-color: #F3F3FA;
 }
@@ -523,3 +524,109 @@ footer a:hover {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
+.carousel-inner img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+}
+
+.price-red {
+  color: #f88d24; 
+}
+
+.carousel-container {
+  background-color: #F3F3FA;
+  width: 100%;
+  padding: 2% 10% 2% 10%;
+  border-top: 2px solid #ccc;
+  margin-top: 10px;
+}
+
+.next {
+  color: black;
+}
+
+.carousel-btn {
+  color: rgb(231, 231, 231);
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+}
+.carousel-btn-container {
+  border-radius: 100%;
+  padding-left: 20px;
+  padding-right: 20px;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  background-color: white;
+}
+
+.carousel-overlay {
+  width: 100%;
+  display:flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-direction: row;
+  
+}
+.carousel-text {
+  width: 50%;
+
+}
+.carousel-btn {
+  padding: 20px;
+  width: 50%;
+}
+
+
+.carousel-card-body {
+  text-align: center;
+}
+
+.carousel-card-img-top{
+  width: 100%; 
+  height: auto; 
+  border-radius: 0;
+}
+
+
+
+.img-seller {
+  height: 400px; /* Set a fixed height */
+  object-fit: cover; /* Ensure the image covers the area without distortion */
+}
+
+.dashboard {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+.dashboard-container {
+  background-color:#F3F3FA;
+  width: max-content;
+  padding: 20px;
+  border-radius: 20px;
+  border-top: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
+}
+
+.table-left-align td {
+  text-align: left; /* Align text to the left */
+  padding-left: 30px;
+}
+
+.table-left-align th {
+  text-align: left; /* Align header text to the left */
+  padding-left: 30px;
+}
+
+.table-left-align th,
+.table-left-align td {
+    text-align: left; /* Align text to the left */
+    padding-left: 30px;
+}
+
+

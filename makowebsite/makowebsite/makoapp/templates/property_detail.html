@@ -11,8 +11,26 @@
             <h1 class="card-title text-center mb-4">{{ property.property_name }}</h1>
             <div class="row">
                 <div class="col-md-6">
-                    {% if property.property_image %}
-                        <img src="{{ property.property_image.url }}" class="img-fluid rounded mb-4" alt="{{ property.property_name }}">
+                    {% if images.count > 0 %}
+                        <div id="propertyImages" class="carousel slide" data-ride="carousel">
+                            <div class="carousel-inner">
+                                {% for image in images %}
+                                    {% if image.image %}
+                                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                            <img src="{{ image.image.url }}" class="d-block w-100 img-fluid rounded mb-4" alt="{{ property.property_name }}">
+                                        </div>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                            <a class="carousel-control-prev" href="#propertyImages" role="button" data-slide="prev">
+                                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Previous</span>
+                            </a>
+                            <a class="carousel-control-next" href="#propertyImages" role="button" data-slide="next">
+                                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                <span class="sr-only">Next</span>
+                            </a>
+                        </div>
                     {% else %}
                         <img src="{% static 'images/default-image.png' %}" class="img-fluid rounded mb-4" alt="Default Image">
                     {% endif %}
@@ -21,7 +39,12 @@
                     <p class="card-text">{{ property.property_description }}</p>
                     <p class="card-text"><strong>Price:</strong> ${{ property.property_price }}</p>
                     <a href="{% url 'property_list' %}" class="btn btn-secondary mt-3">Back to List</a>
-                    <a href="{% url 'property_documents' property.id %}" class="btn btn-primary mt-3">View Documents</a>
+                    {% if user == property.seller or user == property.buyer %}
+                        <a href="{% url 'property_documents' property.id %}" class="btn btn-primary mt-3">View Documents</a>
+                    {% endif %}
+                    {% if user == property.seller %}
+                        <a href="{% url 'upload_property_images' property.id %}" class="btn btn-info mt-3">Upload Images</a>
+                    {% endif %}
                 </div>
             </div>
         </div>
