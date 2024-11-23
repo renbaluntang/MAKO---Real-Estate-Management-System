@@ -12,29 +12,42 @@
     <p class="text-center">Welcome to Your Property Management Dashboard</p>
  
     <div class="row">
-        <div class="col-md-6 mb-4">
-            <div class="card text-white" style="background-color: #4778a9;">
-                <div class="card-body">
-                    <h5 class="card-title">Seller Accounts Total:</h5>
-                    <h2 class="card-text">{{ total_seller_accounts }}</h2>
+                <div class="col-md-6 mb-4">
+                    <div class="card5 text-white" style="background-color: #4778a9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s; border-radius: 10px;">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Total Seller Accounts:
+                            </h5>
+                            <h2 class="card-text">
+                                <i class="fas fa-user icon-seller" style="margin-right: 8px; "> :</i>
+                                {{ total_seller_accounts }}
+                            </h2>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 mb-4">
+                    <div class="card5 text-white" style="background-color: #4778a9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s; border-radius: 10px;">
+                        <div class="card-body">
+                            <h5 class="card-title">
+                                Total Buyer Accounts:
+                            </h5>
+                            <h2 class="card-text">
+                                <i class="fas fa-user icon-buyer" style="margin-right: 8px;"> :</i>
+                                {{ total_buyer_accounts }}
+                            </h2>
+                        </div>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col-md-6 mb-4">
-            <div class="card text-white" style="background-color: #4778a9;">
-                <div class="card-body">
-                    <h5 class="card-title">Buyer Accounts Total:</h5>
-                    <h2 class="card-text">{{ total_buyer_accounts }}</h2>
-                </div>
-            </div>
-        </div>
-    </div>
  
     <div class="row">
         <div class="col-md-4 mb-4">  <!-- Most Recently Added Property Card -->
-            <div class="card" style="width: 100%;">
+            <div class="card5" style="width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s; border-radius: 10px;">
                 <div class="card-body">
-                    <h5 class="card-title">Most Recently Added Property</h5>
+                    <h5 class="card-title">
+                        <i class="fas fa-home" style="margin-right: 8px;"></i>
+                        Newest Property Added
+                    </h5>
                     {% if recent_property %}
                         {% if recent_property.property_image %}
                             <img src="{{ recent_property.property_image.url }}" class="img-fluid mb-3" alt="{{ recent_property.property_name }}">
@@ -46,7 +59,9 @@
                         <p class="card-text"><strong>Price:</strong> ${{ recent_property.property_price }}</p>
                         <p class="card-text d-flex justify-content-between align-items-center">
                             <span><strong>Seller:</strong> {{ recent_property.seller.user_name }}</span>
-                            <a href="{% url 'property_list' %}" class="text-info ms-auto">View All Properties</a>
+                        </p>
+                            <a href="{% url 'property_detail' recent_property.id %}" class="text-info" style="text-decoration: underline;">View Details</a>
+                            <a href="{% url 'property_list' %}" class="text-info ms-3" style="text-decoration: underline; margin-left: 85px;">View All Properties</a>
                         </p>
                     {% else %}
                         <p>No recent properties available.</p>
@@ -54,30 +69,48 @@
                 </div>
             </div>
         </div>
-   
+
         <div class="col-md-4 mb-4">  <!-- Total Properties Count Container -->
-            <div class="card" style="width: 100%;">
-                <div class="card-body text-center text-white" style="background-color: #4778a9; margin-bottom: 10px;">  <!-- Center the text -->
-                    <h5 class="card-title">Total Properties:</h5>
+            <div class="card5 mb-3" style="width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s; border-radius: 10px;">
+                <div class="card-body text-center text-white" style="background-color: #4778a9; border-radius: 10px;">
+                    <h5 class="card-title">
+                        <span class="icon-container">
+                            <i class="fas fa-home"style="margin-right: 13px;"></i> <!-- Single Home Icon -->
+                        </span>
+                        Total Properties:
+                    </h5>
                     <h2 class="card-text">{{ total_properties }}</h2>  <!-- Display total properties count -->
                 </div>
-                <hr class="my-0">  <!-- Divider line -->
-                <div class="card-body text-center text-white" style="background-color: #4778a9; margin-bottom: 10px;">  <!-- Center the text -->
-                    <h5 class="card-title">Available Properties:</h5>
+            </div>
+
+            <div class="card5 mb-3" style="width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s; border-radius: 10px;">
+                <div class="card-body text-center text-white" style="background-color: #4778a9; border-radius: 10px;">
+                    <h5 class="card-title">
+                        <i class="fas fa-key"></i>
+                        Available Properties:
+                    </h5>
                     <h2 class="card-text">{{ available_properties_count }}</h2>  <!-- Display available properties count -->
                 </div>
-                <hr class="my-0">  <!-- Divider line -->
-                <div class="card-body text-center text-white" style="background-color: #4778a9;">  <!-- Center the text -->
-                    <h5 class="card-title">Total Sold Properties:</h5>
+            </div>
+
+            <div class="card5" style="width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s; border-radius: 10px;">
+                <div class="card-body text-center text-white" style="background-color: #4778a9; border-radius: 10px;">
+                    <h5 class="card-title">
+                        <i class="fas fa-check-circle" ></i>
+                        Sold Properties:
+                    </h5>
                     <h2 class="card-text">{{ total_sold_properties }}</h2>  <!-- Display total sold properties count -->
                 </div>
             </div>
         </div>
-   
+
         <div class="col-md-4 mb-4">  <!-- Most Recently Sold Property Card -->
-            <div class="card" style="width: 100%;">
+            <div class="card5" style="width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s; border-radius: 10px;">
                 <div class="card-body">
-                    <h5 class="card-title">Most Recently Sold Property</h5>
+                    <h5 class="card-title">
+                        <i class="fas fa-home" style="margin-right: 8px;"></i>
+                        Latest Property Sold
+                    </h5>
                     {% if recent_sold_property %}
                         {% if recent_sold_property.property_image %}
                             <img src="{{ recent_sold_property.property_image.url }}" class="img-fluid mb-3" alt="{{ recent_sold_property.property_name }}">
@@ -89,7 +122,10 @@
                         <p class="card-text"><strong>Price:</strong> ${{ recent_sold_property.property_price }}</p>
                         <p class="card-text d-flex justify-content-between align-items-center">
                             <span><strong>Seller:</strong> {{ recent_sold_property.seller.user_name }}</span>
-                            <a href="{% url 'property_list' %}" class="text-info ms-auto">View All Properties</a>
+                        </p>
+                        </p>
+                            <a href="{% url 'property_detail' recent_property.id %}" class="text-info" style="text-decoration: underline;">View Details</a>
+                            <a href="{% url 'property_list' %}" class="text-info ms-3" style="text-decoration: underline; margin-left: 85px;">View All Properties</a>
                         </p>
                     {% else %}
                         <p>No recent sold properties available.</p>

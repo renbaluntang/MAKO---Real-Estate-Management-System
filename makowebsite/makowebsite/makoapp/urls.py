@@ -20,6 +20,7 @@ urlpatterns = [
     path('user_management_dashboard/', views.user_management_dashboard_view, name='user_management_dashboard'),
     path('user_management_papers/', user_management_papers_view, name='user_management_papers'),
     path('edit_user/<int:user_id>/', views.edit_user_view, name='edit_user'),  # Add this line
+    path('delete_user/<int:user_id>/', views.delete_user_view, name='delete_user'),
 
     path('properties/', views.property_list, name='property_list'),
     path('properties/<int:property_id>/', views.property_detail, name='property_detail'),

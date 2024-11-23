@@ -106,6 +106,16 @@ def update_user_role_view(request, user_id):
         form = UpdateUserRoleForm(instance=user)
     return render(request, 'update_user_role.html', {'form': form, 'user': user})
 
+@login_required
+def delete_user_view(request, user_id):
+    user = get_object_or_404(User, id=user_id)  # Fetch the user to delete
+    if request.method == 'POST':
+        user.delete()  # Delete the user
+        messages.success(request, 'User deleted successfully.')  # Success message
+        return redirect('user_management_users')  # Redirect to the user management page
+    return render(request, 'confirm_delete.html', {'user': user})  # Render confirmation page
+
+@login_required
 def user_management_users_view(request):
     # Get search query and role filter from request
     search_query = request.GET.get('search', '')
@@ -126,6 +136,7 @@ def user_management_users_view(request):
 
     return render(request, 'user_management_users.html', {'users': users, 'search_query': search_query, 'role_filter': role_filter})
 
+@login_required
 def edit_user_view(request, user_id):
     user = get_object_or_404(User, id=user_id)  # Fetch the user to edit
     if request.method == 'POST':

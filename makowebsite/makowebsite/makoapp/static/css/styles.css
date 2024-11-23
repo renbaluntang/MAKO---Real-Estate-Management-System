@@ -601,16 +601,17 @@ footer a:hover {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
 }
 
 .dashboard-container {
   background-color:#F3F3FA;
   width: max-content;
-  padding: 20px;
-  border-radius: 20px;
-  border-top: 1px solid #ccc;
-  border-bottom: 1px solid #ccc;
+  padding: 25px;
+  border-radius: 10px;
+  border-radius: 10px;
+  margin: 0 auto; /* Center the container */
+  /* border-top: 1px solid #ccc; */
+  /* border-bottom: 1px solid #ccc; */
 }
 
 .table-left-align td {
@@ -623,10 +624,54 @@ footer a:hover {
   padding-left: 30px;
 }
 
-.table-left-align th,
-.table-left-align td {
-    text-align: left; /* Align text to the left */
-    padding-left: 30px;
+.card5:hover {
+    transform: scale(1.02); /* Slightly enlarge the card on hover */
+    transition: transform 0.2s; /* Smooth transition */
 }
+
+.icon-seller {
+    color: rgb(30, 131, 255); /* Background color for seller icon */
+    background-color: #F3F3FA; /* Icon color */
+    padding: 5px; /* Padding around the icon */
+    border-radius: 50%; /* Make the background circular */
+}
+
+.icon-buyer {
+    color: rgb(28, 43, 252);; /* Background color for buyer icon */
+    background-color: #F3F3FA; /* Icon color */
+    padding: 5px; /* Padding around the icon */
+    border-radius: 50%; /* Make the background circular */
+}
+
+/* Optional: Adjust icon size if needed */
+.icon-seller, .icon-buyer {
+    font-size: 1.5rem; /* Adjust size as needed */
+}
+
+.icon-container {
+    position: relative; /* Position relative for absolute positioning of icons */
+    display: inline-block; /* Allow icons to be inline */
+}
+
+.icon-container i {
+    font-size: 1.5rem; /* Adjust size as needed */
+    color: #292929; /* Icon color */
+}
+
+.icon-container::before {
+    content: "\f015"; /* Unicode for the home icon */
+    font-family: "Font Awesome 5 Free"; /* Ensure the correct font family */
+    font-weight: 900; /* Solid style */
+    position: absolute; /* Position absolutely */
+    left: 0; /* Align to the left */
+    top: 0; /* Align to the top */
+    font-size: 1.5rem; /* Adjust size as needed */
+    color: rgb(230, 223, 223); /* Slightly transparent color for the second icon */
+    transform: translate(12px, 3px); /* Adjust position to create overlap */
+}
+
+
+
+
 
 
