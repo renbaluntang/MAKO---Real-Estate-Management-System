@@ -478,8 +478,6 @@ footer a:hover {
   height: max-content;
   flex-direction: column;
   padding: 20px;
-  padding-left: 10%;
-  padding-right: 10%;
   flex-wrap: wrap;
   background-color: #F3F3FA;
 }

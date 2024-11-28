@@ -5,6 +5,13 @@
 {% block title %}Real Estate Dashboard{% endblock %}
  
 {% block content %}
+<style>
+    .property-image {
+        width: 100%; /* Make the image responsive */
+        height: 380px; /* Set a fixed height */
+        object-fit: cover; /* Ensure the image covers the area without distortion */
+    }
+</style>
 <div class='dashboard'>
 <div class='dashboard-container'>
 <div class="container">
@@ -50,9 +57,9 @@
                     </h5>
                     {% if recent_property %}
                         {% if recent_property.property_image %}
-                            <img src="{{ recent_property.property_image.url }}" class="img-fluid mb-3" alt="{{ recent_property.property_name }}">
+                            <img src="{{ recent_property.property_image.url }}" class="img-fluid mb-3 property-image" alt="{{ recent_property.property_name }}">
                         {% else %}
-                            <img src="{% static 'images/default-image.png' %}" class="img-fluid mb-3" alt="Default Image">
+                            <img src="{% static 'images/default-image.png' %}" class="img-fluid mb-3 property-image" alt="Default Image">
                         {% endif %}
                         <h5 class="card-title">{{ recent_property.property_name }}</h5>
                         <p class="card-text">{{ recent_property.property_description }}</p>
@@ -93,13 +100,23 @@
                 </div>
             </div>
 
-            <div class="card5" style="width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s; border-radius: 10px;">
+            <div class="card5 mb-3" style="width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s; border-radius: 10px;">
                 <div class="card-body text-center text-white" style="background-color: #4778a9; border-radius: 10px;">
                     <h5 class="card-title">
                         <i class="fas fa-check-circle" ></i>
                         Sold Properties:
                     </h5>
                     <h2 class="card-text">{{ total_sold_properties }}</h2>  <!-- Display total sold properties count -->
+                </div>
+            </div>
+
+            <div class="card5" style="width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s; border-radius: 10px;">
+                <div class="card-body text-center text-white" style="background-color: #4778a9; border-radius: 10px;">
+                    <h5 class="card-title">
+                        <i class="fas fa-file-alt"></i> <!-- Document Icon -->
+                        Total Documents:
+                    </h5>
+                    <h2 class="card-text">{{ total_documents }}</h2>  <!-- Display total documents count -->
                 </div>
             </div>
         </div>
@@ -113,9 +130,9 @@
                     </h5>
                     {% if recent_sold_property %}
                         {% if recent_sold_property.property_image %}
-                            <img src="{{ recent_sold_property.property_image.url }}" class="img-fluid mb-3" alt="{{ recent_sold_property.property_name }}">
+                            <img src="{{ recent_sold_property.property_image.url }}" class="img-fluid mb-3 property-image" alt="{{ recent_sold_property.property_name }}">
                         {% else %}
-                            <img src="{% static 'images/default-image.png' %}" class="img-fluid mb-3" alt="Default Image">
+                            <img src="{% static 'images/default-image.png' %}" class="img-fluid mb-3 property-image" alt="Default Image">
                         {% endif %}
                         <h5 class="card-title">{{ recent_sold_property.property_name }}</h5>
                         <p class="card-text">{{ recent_sold_property.property_description }}</p>

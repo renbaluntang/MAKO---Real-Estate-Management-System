@@ -157,6 +157,7 @@ def user_management_dashboard_view(request):
     total_properties = Property.objects.count()  # Total properties count
     total_sold_properties = Property.objects.filter(is_sold=True).count()  # Total sold properties count
     available_properties_count = Property.objects.filter(is_sold=False).count()  # Count of available properties
+    total_documents = Document.objects.count()  # Count total documents
  
     return render(request, 'user_management_dashboard.html', {
         'total_seller_accounts': total_seller_accounts,
@@ -165,7 +166,8 @@ def user_management_dashboard_view(request):
         'recent_sold_property': recent_sold_property,
         'total_properties': total_properties,
         'total_sold_properties': total_sold_properties,
-        'available_properties_count': available_properties_count  # Pass the available properties count
+        'available_properties_count': available_properties_count,  # Pass the available properties count
+        'total_documents': total_documents,  # Pass the total documents count
     })
  
 @login_required

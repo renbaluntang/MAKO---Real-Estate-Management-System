@@ -5,6 +5,14 @@
 {% block title %}Property List{% endblock %}
 
 {% block content %}
+<style>
+    .property-image {
+        width: 100%; /* Make the image responsive */
+        height: 400px; /* Set a fixed height */
+        object-fit: cover; /* Ensure the image covers the area without distortion */
+    }
+    
+</style>
 <div class="container mt-5">
     <h1 class="mb-4 text-center">Property List</h1>
 
@@ -29,16 +37,17 @@
     <div class="row">
         {% for property in properties %}
         <div class="col-md-4 mb-4">
-            <div class="card shadow-sm">
+            <div class="card5 shadow-sm">
                 {% if property.property_image %}
-                    <img src="{{ property.property_image.url }}" class="card-img-top" alt="{{ property.property_name }}">
+                    <img src="{{ property.property_image.url }}" class="card-img-top property-image" alt="{{ property.property_name }}">
                 {% else %}
-                    <img src="{% static 'images/default-image.png' %}" class="card-img-top" alt="Default Image">
+                    <img src="{% static 'images/default-image.png' %}" class="card-img-top property-image" alt="Default Image">
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ property.property_name }}</h5>
-                    <p class="card-text">{{ property.property_description }}</p>
-                    <p class="card-text price-red">${{ property.property_price }}</p>                    {% if not property.is_sold %}
+                    <p class="card-text description">{{ property.property_description }}</p>
+                    <p class="card-text price-red">${{ property.property_price }}</p>                    
+                    {% if not property.is_sold %}
                         <a href="{% url 'property_buy' property.id %}" class="btn btn-success">Buy Now</a>
                     {% else %}
                         <span class="badge badge-secondary">Sold</span>
