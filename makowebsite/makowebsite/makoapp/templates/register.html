@@ -19,10 +19,8 @@
   }
   
 </style>
-<div class="register-form-container" style="background-color: aqua;
-    height: 100vh;
-">
-<form method="post" enctype="multipart/form-data" action="{% url 'register' %}" class="register-form">
+<div class="register-form-container" style="height: 100vh; background-image: url('{% static 'images/pexels-timur-saglambilek-872232.png' %}'); background-size: contain; background-position: center; background-repeat: no-repeat;">
+<form method="post" enctype="multipart/form-data" action="{% url 'register' %}" class="pt-5 login-form register-form">
   {% csrf_token %}
 
   <div class="form-group">
