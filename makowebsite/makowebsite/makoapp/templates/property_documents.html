@@ -34,8 +34,8 @@
             <h2 class="card-title mb-4">Documents for {{ property.property_name }}</h2>
             <ul class="list-group mb-4">
                 {% for document in documents %}
-                <li class="list-group-item d-flex justify-content-between align-items-center">
-                    <div>
+                <li class="list-group-item d-flex justify-content-between align-items-center bg-light mb-4">
+                    <div> 
                         <h6>{{ document.documentation_type }}</h6>
                         {% if document.documentation_image %}
                             <img src="{{ document.documentation_image.url }}" class="img-thumbnail mt-2" style="max-width: 400px;" alt="{{ document.documentation_type }}">

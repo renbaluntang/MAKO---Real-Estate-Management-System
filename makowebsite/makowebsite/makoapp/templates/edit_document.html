@@ -5,33 +5,40 @@
 {% block content %}
 <div class="container mt-5">
     <h1 class="mb-4 text-center">Edit Document</h1>
-    
-    <!-- Display the current image if it exists -->
-    {% if document.documentation_image %}
-        <div class="text-center mb-4">
-            <img src="{{ document.documentation_image.url }}" class="img-thumbnail" alt="{{ document.documentation_type }}">
+
+    {% if document.property.seller.username != request.user.username %}
+        <div class="alert alert-danger text-center" role="alert">
+            You do not have permission to edit this document.
+        </div>
+        <a href="{% url 'property_documents' document.property.id %}" class="btn btn-secondary">Go Back</a>
+    {% else %}
+        <!-- Display the current image if it exists -->
+        {% if document.documentation_image %}
+            <div class="text-center mb-4">
+                <img src="{{ document.documentation_image.url }}" class="img-thumbnail" alt="{{ document.documentation_type }}">
+            </div>
+        {% endif %}
+        
+        <div class="card bg-light">
+            <div class="card-body">
+                <!-- Display the seller if it exists -->
+                {% if document.property.seller %}
+                    <p class="card-text"><strong>Seller:</strong> {{ document.property.seller.username }}</p>
+                {% endif %}
+                
+                <!-- Display the buyer if it exists -->
+                {% if document.property.buyer %}
+                    <p class="card-text"><strong>Buyer:</strong> {{ document.property.buyer.username }}</p>
+                {% endif %}
+        
+        <form method="post" enctype="multipart/form-data">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit" class="btn btn-success">Save Changes</button>
+            <a href="{% url 'property_documents' document.property.id %}" class="btn btn-secondary">Cancel</a>
+        </form>
+            </div>
         </div>
     {% endif %}
-    
-    <div class="card shadow-sm mb-4">
-        <div class="card-body">
-            <!-- Display the seller if it exists -->
-            {% if document.property.seller %}
-                <p class="card-text"><strong>Seller:</strong> {{ document.property.seller.username }}</p>
-            {% endif %}
-            
-            <!-- Display the buyer if it exists -->
-            {% if document.property.buyer %}
-                <p class="card-text"><strong>Buyer:</strong> {{ document.property.buyer.username }}</p>
-            {% endif %}
-        </div>
-    </div>
-    
-    <form method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-        {{ form.as_p }}
-        <button type="submit" class="btn btn-success">Save Changes</button>
-        <a href="{% url 'property_documents' document.property.id %}" class="btn btn-secondary">Cancel</a>
-    </form>
 </div>
 {% endblock %}

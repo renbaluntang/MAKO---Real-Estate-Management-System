@@ -15,6 +15,9 @@
     <script class="u-script" type="text/javascript" src="{% static 'js/nicepage.js' %}" defer=""></script>
 </head>
 <body class="u-body u-xl-mode">
+    <div id="loading-screen" class="loading-screen">
+        <div class="loader"></div>
+    </div>
     <header class="u-clearfix u-header u-header" id="sec-93b4"><div class="u-clearfix u-sheet u-valign-middle-md u-valign-middle-sm u-valign-middle-xs u-sheet-1">
         <a href="{% url 'home' %}" class="u-image u-logo u-image-1" data-image-width="6000" data-image-height="3375">
           <img src="{% static 'images/MAKOv3.png' %}" class="u-logo-image u-logo-image-1">
@@ -33,7 +36,7 @@
                     <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"   href="{% url 'user_management_dashboard' %}">Dashboard</a></li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"   href="{% url 'user_management_users' %}">Users</a></li>
                     <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"   href="{% url 'user_management_papers' %}">All Documents</a></li>
-                    <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"   href="{% url 'transaction_list' %}">Transactions</a></li>
+                    <li class="u-nav-item"><a class="u-button-style u-nav-link u-text-active-palette-1-base u-text-hover-palette-2-base"   href="{% url 'transaction_list' %}">Reservation</a></li>
                 {% endif %}
     
                 {% if user.is_authenticated and user.is_seller %}
@@ -212,7 +215,14 @@
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById("loading-screen").style.display = "flex";
 
+        // Hide the loading screen after a delay (for demonstration purposes)
+        window.addEventListener("load", function() {
+            document.getElementById("loading-screen").style.display = "none";
+        });
+    </script>
 
 </body>
 </html>

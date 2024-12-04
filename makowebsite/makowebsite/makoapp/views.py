@@ -329,9 +329,9 @@ def seller_property_list(request):
         properties = properties.filter(property_name__icontains=query)
 
     # Apply status filter
-    if status == 'Reserved':
+    if status == 'reserved':
         properties = properties.filter(is_reserved=True)
-    elif status == 'Unsold':
+    elif status == 'unsold':
         properties = properties.filter(is_reserved=False)
 
     return render(request, 'seller_property_list.html', {'properties': properties, 'query': query})

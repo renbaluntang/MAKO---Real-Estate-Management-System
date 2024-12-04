@@ -3,7 +3,7 @@
 {% block title %}User Management{% endblock %}
  
 {% block content %}
-    <h1 class="text-center">Users List</h1>
+    <h1 class="text-center">User List</h1>
     <form method="get" action="{% url 'user_management_users' %}" class="mb-4">
         <div class="input-group mb-3">
             <input type="text" name="search" class="form-control" placeholder="Search users by name..." value="{{ search_query }}">
@@ -13,9 +13,9 @@
         </div>
     </form>
     <div class="d-flex justify-content-between align-items-center mt-1">
-        <h2 class="mb-0">List of Users
+        <h5 class="mb-0">List of Users
             <i class="fas fa-user icon-seller1" style="margin-right: 8px; "></i>
-        </h2>
+        </h5>
 
         <form method="GET" action="" class="d-inline">
             <select name="role" class="form-control" style="display: inline-block; width: auto;">

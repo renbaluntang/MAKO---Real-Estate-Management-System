@@ -25,26 +25,7 @@
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ property.property_name }}</h5>
-                        <p class="card-text">{{ property.property_description }}</p>
-                        <p class="card-text"><strong>Price:</strong> ${{ property.property_price }}</p>
-                        <p class="card-text"><strong>Seller:</strong> {{ property.seller.username }}</p>
-                        <h6 class="mt-3">Documents:</h6>
-                        <div class="d-flex flex-wrap">
-                            {% for document in property.document_set.all %}
-                                <div class="d-flex align-items-center mb-2" style="width: 100%;">
-                                    <div class="flex-grow-1">
-                                        {{ document.documentation_type }}
-                                    </div>
-                                    {% if document.documentation_image %}
-                                        <img src="{{ document.documentation_image.url }}" class="img-thumbnail" alt="{{ document.documentation_type }}" style="width: 60px; height: 60px; object-fit: cover;">
-                                    {% else %}
-                                        <span>(No image available)</span>
-                                    {% endif %}
-                                </div>
-                            {% empty %}
-                                <p>No documents available for this property.</p>
-                            {% endfor %}
-                        </div>
+
                         <div class="mt-3">
                             <a href="{% url 'property_documents' property.id %}" class="btn btn-primary mt-3">View Documents</a>
                         </div>

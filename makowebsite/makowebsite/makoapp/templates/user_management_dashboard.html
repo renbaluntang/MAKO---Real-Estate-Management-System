@@ -16,30 +16,29 @@
 <div class='dashboard-container'>
 <div class="container">
     <h1 class="text-center">Real Estate Dashboard</h1>
-    <p class="text-center">Welcome to Your Property Management Dashboard</p>
  
     <div class="row">
                 <div class="col-md-6 mb-4">
-                    <div class="card5 text-white" style="background-color: #4778a9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s; border-radius: 10px;">
-                        <div class="card-body">
+                    <div class="card5 management-card">
+                        <div class="card-body ">
                             <h5 class="card-title">
                                 Total Seller Accounts:
                             </h5>
                             <h2 class="card-text">
-                                <i class="fas fa-user icon-seller" style="margin-right: 8px; "> :</i>
+                                <i class="fas fa-user icon-seller" style="margin-right: 8px; "> </i>
                                 {{ total_seller_accounts }}
                             </h2>
                         </div>
                     </div>
                 </div>
                 <div class="col-md-6 mb-4">
-                    <div class="card5 text-white" style="background-color: #4778a9; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s; border-radius: 10px;">
+                    <div class="card5 management-card">
                         <div class="card-body">
                             <h5 class="card-title">
                                 Total Buyer Accounts:
                             </h5>
                             <h2 class="card-text">
-                                <i class="fas fa-user icon-buyer" style="margin-right: 8px;"> :</i>
+                                <i class="fas fa-user icon-buyer" style="margin-right: 8px;"> </i>
                                 {{ total_buyer_accounts }}
                             </h2>
                         </div>
@@ -67,8 +66,8 @@
                         <p class="card-text d-flex justify-content-between align-items-center">
                             <span><strong>Seller:</strong> {{ recent_property.seller.user_name }}</span>
                         </p>
-                            <a href="{% url 'property_detail' recent_property.id %}" class="text-info" style="text-decoration: underline;">View Details</a>
-                            <a href="{% url 'property_list' %}" class="text-info ms-3" style="text-decoration: underline; margin-left: 85px;">View All Properties</a>
+                            <a href="{% url 'property_detail' recent_property.id %}" class="text-info mr-5" style="text-decoration: underline;">View Details</a>
+                            <a href="{% url 'property_list' %}" class="text-info ms-3" style="text-decoration: underline;">View All Properties</a>
                         </p>
                     {% else %}
                         <p>No recent properties available.</p>
@@ -78,11 +77,11 @@
         </div>
 
         <div class="col-md-4 mb-4">  <!-- Total Properties Count Container -->
-            <div class="card5 mb-3" style="width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s; border-radius: 10px;">
-                <div class="card-body text-center text-white" style="background-color: #4778a9; border-radius: 10px;">
+            <div class="card5 management-card mb-3">
+                <div class="card-body management-card">
                     <h5 class="card-title">
                         <span class="icon-container">
-                            <i class="fas fa-home"style="margin-right: 13px;"></i> <!-- Single Home Icon -->
+                            <i class="fas fa-home"style="margin-right: 13px;"></i>
                         </span>
                         Total Properties:
                     </h5>
@@ -90,8 +89,8 @@
                 </div>
             </div>
 
-            <div class="card5 mb-3" style="width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s; border-radius: 10px;">
-                <div class="card-body text-center text-white" style="background-color: #4778a9; border-radius: 10px;">
+            <div class="card5 management-card mb-3">
+                <div class="card-body management-card">
                     <h5 class="card-title">
                         <i class="fas fa-key"></i>
                         Available Properties:
@@ -100,8 +99,8 @@
                 </div>
             </div>
 
-            <div class="card5 mb-3" style="width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s; border-radius: 10px;">
-                <div class="card-body text-center text-white" style="background-color: #4778a9; border-radius: 10px;">
+            <div class="card5 management-card mb-3">
+                <div class="card-body management-card">
                     <h5 class="card-title">
                         <i class="fas fa-check-circle" ></i>
                         Reserved Properties:
@@ -110,8 +109,8 @@
                 </div>
             </div>
 
-            <div class="card5" style="width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s; border-radius: 10px;">
-                <div class="card-body text-center text-white" style="background-color: #4778a9; border-radius: 10px;">
+            <div class="card5 management-card mb-3">
+                <div class="card-body management-card">
                     <h5 class="card-title">
                         <i class="fas fa-file-alt"></i> <!-- Document Icon -->
                         Total Documents:
@@ -141,8 +140,8 @@
                             <span><strong>Seller:</strong> {{ recent_reserved_property.seller.user_name }}</span>
                         </p>
                         </p>
-                            <a href="{% url 'property_detail' recent_property.id %}" class="text-info" style="text-decoration: underline;">View Details</a>
-                            <a href="{% url 'property_list' %}" class="text-info ms-3" style="text-decoration: underline; margin-left: 85px;">View All Properties</a>
+                            <a href="{% url 'property_detail' recent_property.id %}" class="text-info mr-5" style="text-decoration: underline;">View Details</a>
+                            <a href="{% url 'property_list' %}" class="text-info ms-3" style="text-decoration: underline;">View All Properties</a>
                         </p>
                     {% else %}
                         <p>No recent reserved properties available.</p>
@@ -152,9 +151,7 @@
         </div>
     </div>
  
-    <div class="text-center">
-        <a href="{% url 'user_management_users' %}" class="btn btn-primary">Manage Users</a>
-    </div>
+
 </div>
 </div>
 </div>

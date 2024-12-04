@@ -1,16 +1,16 @@
 {% extends 'base.html' %}
  
-{% block title %}Transaction History{% endblock %}
+{% block title %}Reservation History{% endblock %}
  
 {% block content %}
-<h1 class="text-center">Reservation History <i class="fas fa-clipboard-check" style="margin-left: 8px;"></i></h1>
+<h1 class="text-center">Reservation History</h1>
  
 <!-- Search Form -->
 <form method="get" action="{% url 'transaction_list' %}" class="mb-4">
     <div class="input-group mb-3">
         <input type="text" name="q" class="form-control" placeholder="Search by property name..." value="{{ request.GET.q }}">
         <div class="input-group-append">
-            <button class="btn btn-primary" type="submit">Search</button>
+            <button class="btn btn-outline-secondary" type="submit">Search</button>
         </div>
     </div>
 </form>

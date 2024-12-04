@@ -2,13 +2,36 @@
 
 {% extends 'base.html' %}
 
+{% load static %}
 {% block title %}Confirm Delete{% endblock %}
 
 {% block content %}
-<h1>Are you sure you want to delete "{{ property.property_name }}"?</h1>
-<form method="post">
-    {% csrf_token %}
-    <button type="submit" class="btn btn-danger">Confirm Delete</button>
-    <a href="{% url 'seller_property_list' %}" class="btn btn-secondary">Cancel</a>
-</form>
+
+<style>
+    header {
+      display: none;
+    }
+    footer {
+      display: none;
+    }
+    .main-content {
+      padding: 0;
+      margin: 0;
+      background-image: url('{{ property.property_image.url }}');
+      background-repeat: no-repeat; 
+      background-size: cover;
+    }
+</style>
+<div class="container">
+    <div class="card container col-md-8 bg-light">
+        <div class="row card-body justify-content-center text-center">
+        <h1>Are you sure you want to delete "<strong class="text-danger">{{ property.property_name }}</strong>"?</h1>
+        <form method="post">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-danger">Confirm Delete</button>
+            <a href="{% url 'seller_property_list' %}" class="btn btn-secondary">Cancel</a>
+        </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

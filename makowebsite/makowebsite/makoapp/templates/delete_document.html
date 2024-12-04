@@ -7,9 +7,8 @@
 
 {% block content %}
 {% if user.role.role_name == 'Admin' or user.role.role_name == 'Seller' %}
-<div class="container mt-5">
-    <h1 class="mb-4 text-center">Delete Document</h1>
-    <p>Are you sure you want to delete the document "{{ document.documentation_type }}"?</p>
+<div class="container mt-5 bg-light text-center justify-content-center col-md-8 p-4">
+    <h3>Are you sure you want to delete the document "<strong class="text-danger">{{ document.documentation_type }}</strong>"?</h3>
     <form method="post">
         {% csrf_token %}
         <button type="submit" class="btn btn-danger">Delete</button>
