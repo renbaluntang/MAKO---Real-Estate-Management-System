@@ -20,7 +20,7 @@ html, body {
 }
  
  
-header {
+/*header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -28,9 +28,9 @@ header {
   margin-top: 20px;
   width: 100%;
 }
- 
+ */
 header img {
-  height: 30px;
+  height: 40px;
   border-radius: 8px;
 }
  
@@ -65,7 +65,7 @@ nav a:hover {
  
 .main-section {
   background-image: url("/static/images/landing-page-bg.svg");
-  height: 100vh;
+  height: 80vh;
   background-repeat: no-repeat;
   background-position: bottom right;
   padding: 0px 20px 0px;
@@ -104,8 +104,11 @@ nav a:hover {
 }
  
 .profile-icon {
-  height: 16px;
-  margin-right: 5px;
+  height: 40px;
+  width:40px;
+  border-radius: 50%; /* Makes it circular */
+  object-fit: cover; /* Ensures the image doesn't stretch */
+  border: 2px solid #ccc; /* Optional: Add a border */
 }
  
 .sign-up-button {
@@ -129,7 +132,7 @@ nav a:hover {
 .main-section {
   position: relative;
   background-image: url("/static/images/landing-page-bg.svg");
-  min-height: 100vh;
+  min-height: 80vh;
   background-repeat: no-repeat;
   background-position: bottom right;
   color: rgb(0, 0, 0);
@@ -336,8 +339,6 @@ footer a:hover {
 }
  
 .profile-container {
-  width: 50%;
-  max-width: 800px;
   padding: 20px;
   border-radius: 8px;
   margin: 30px auto;
@@ -626,6 +627,7 @@ footer a:hover {
     transform: scale(1.02); /* Slightly enlarge the card on hover */
     transition: transform 0.2s; /* Smooth transition */
 }
+
 
 .icon-seller {
     color: rgb(30, 131, 255); /* Background color for seller icon */

@@ -37,13 +37,13 @@
     <div class="row">
         {% for property in properties %}
         <div class="col-md-4 mb-4">
-            <div class="card5 shadow-sm">
+            <div class="card h-100 p-2 shadow-sm">
                 {% if property.property_image %}
                     <img src="{{ property.property_image.url }}" class="card-img-top property-image" alt="{{ property.property_name }}">
                 {% else %}
                     <img src="{% static 'images/default-image.png' %}" class="card-img-top property-image" alt="Default Image">
                 {% endif %}
-                <div class="card-body">
+                <div class="carousel-card-body card-body">
                     <h5 class="card-title">{{ property.property_name }}</h5>
                     <p class="card-text description">{{ property.property_description }}</p>
                     <p class="card-text price-red">${{ property.property_price }}</p>                    

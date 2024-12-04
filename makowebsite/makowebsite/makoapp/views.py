@@ -29,7 +29,7 @@ def user_management(request):
 def home(request):
     properties = Property.objects.all()  # Fetch all properties
     properties_list = list(properties)  # Convert to list for slicing
-    return render(request, 'home.html', {'properties': [properties_list[i:i + 4] for i in range(0, len(properties_list), 4)]})
+    return render(request, 'home.html', {'properties': [properties_list[i:i + 3] for i in range(0, len(properties_list), 3)]})
 
 def register_view(request):
     if request.method == 'POST':

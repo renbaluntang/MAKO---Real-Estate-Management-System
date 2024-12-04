@@ -5,7 +5,8 @@
 {% block title %}Login{% endblock %}
 
 {% block content %}
-<div class="centered-container">
+<div class="d-flex align-items-center justify-content-center">
+<div class="col-10 col-md-6 login-form centered-container">
   <div class="container">
     <div class="logo-login text-center">
       <img src="{% static 'images/makov2.png' %}" alt="Mako Logo" />
@@ -18,7 +19,7 @@
           {% for message in messages %} {{ message }} {% endfor %}
         </div>
         {% endif %}
-        <form class="login-form" method="post" action="{% url 'login' %}">
+        <form class="" method="post" action="{% url 'login' %}">
           {% csrf_token %}
           <div class="form-group">
             <div class="input-group">
@@ -48,5 +49,6 @@
       </div>
     </div>
   </div>
+</div>
 </div>
 {% endblock %}
