@@ -264,7 +264,7 @@ def property_edit(request, property_id):
             updated_property.seller = property_instance.seller  # Keep the original seller
             
             # Set the property status based on the form input
-            updated_property.is_reserved = property_instance.form.cleaned_data.get('is_reserved') == 'True' 
+            updated_property.is_reserved = form.cleaned_data.get('is_reserved')  # Corrected line
             
             # Set the buyer based on the form input
             updated_property.buyer = form.cleaned_data.get('buyer')  # Assign the selected buyer
@@ -277,7 +277,6 @@ def property_edit(request, property_id):
             return redirect('seller_property_list')  # Redirect to the seller's property list
 
     return render(request, 'property_update_seller.html', {'form': form, 'property': property_instance})
-
 
 @login_required
 def property_delete(request, property_id):

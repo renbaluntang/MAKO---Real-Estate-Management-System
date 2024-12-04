@@ -34,12 +34,16 @@
 
         <div class="row">
             {% for property in properties %}
-            <div class="col-md-4 mb-4">
-                <div class="card shadow-sm">
+            <div class="col-12 col-lg-6 col-xl-4 mb-4 d-flex">
+                <div class="bg-light u-expanded-width u-image u-image-default u-image-1 card shadow-sm" >
                     {% if property.property_image %}
-                        <img src="{{ property.property_image.url }}" class="card-img-top" alt="{{ property.property_name }}">
+                        <img src="{{ property.property_image.url }}" class="pt-3 u-expanded-width u-image u-image-default u-image-1 col-12" alt="{{ property.property_name }}" style="
+                        height: 55%;
+                    ">
                     {% else %}
-                        <img src="{% static 'images/default-image.png' %}" class="card-img-top" alt="Default Image">
+                        <img src="{% static 'images/default-image.png' %}" class="pt-3 u-expanded-width u-image u-image-default u-image-1 col-12" alt="Default Image" style="
+                        height: 55%;
+                    ">
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{ property.property_name }}</h5>         

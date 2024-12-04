@@ -8,19 +8,19 @@
 {% block content %}
 
 <style>
-    header {
-      display: none;
-    }
-    footer {
-      display: none;
-    }
-    .main-content {
-      padding: 0;
-      margin: 0;
-      background-image: url('{{ property.property_image.url }}');
-      background-repeat: no-repeat; 
-      background-size: cover;
-    }
+  header {
+    display: none;
+  }
+  footer {
+    display: none;
+  }
+  .main-content {
+    padding: 0;
+    margin: 0;
+    background-image: url('{% if property.property_image %}{{ property.property_image.url }}{% else %}{% static "images/default-image.png" %}{% endif %}');
+    background-repeat: no-repeat; 
+    background-size: cover; /* Use cover to ensure the image covers the area */
+  }
 </style>
 <div class="container">
     <div class="card container col-md-8 bg-light">

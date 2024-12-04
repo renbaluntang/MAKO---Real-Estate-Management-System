@@ -14,14 +14,18 @@
         </div>
     {% else %}
         {% if properties %}
-            <div class="row">
+            <div class="row p-0 m-0">
                 {% for property in properties %}
-                <div class="col-md-4 mb-4">
-                    <div class="card shadow-sm">
+                <div class="shadow-sm bg-light col-12 col-lg-6 col-xl-4 mb-4 px-1">
+                    <div class="">
                         {% if property.property_image %}
-                            <img src="{{ property.property_image.url }}" class="card-img-top" alt="{{ property.property_name }}">
+                            <img src="{{ property.property_image.url }}" class="card-img-top u-expanded-width u-image u-image-default u-image-1 col-12 mt-3" style="
+                            height: 210px;
+                        " alt="{{ property.property_name }}">
                         {% else %}
-                            <img src="{% static 'images/default-image.png' %}" class="card-img-top" alt="Default Image">
+                            <img src="{% static 'images/default-image.png' %}" class="card-img-top u-expanded-width u-image u-image-default u-image-1 col-12 mt-3" style="
+                            height: 210px;
+                        " alt="Default Image">
                         {% endif %}
                         <div class="card-body">
                             <h5 class="card-title">{{ property.property_name }}</h5>

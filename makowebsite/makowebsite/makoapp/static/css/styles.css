@@ -439,6 +439,12 @@ footer a:hover {
   align-items: center;
   height: 100vh;  
 }
+
+.login-centered-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
  
 /* about.css */
 
@@ -651,7 +657,7 @@ border-radius: 50%; /* Make the background circular */
 }
 
 .icon-buyer {
-color: rgb(53, 55, 78);; /* Background color for buyer icon */
+color:  rgb(30, 131, 255); /* Background color for buyer icon */
 background-color: #F3F3FA; /* Icon color */
 padding: 10px; /* Padding around the icon */
 border-radius: 50%; /* Make the background circular */

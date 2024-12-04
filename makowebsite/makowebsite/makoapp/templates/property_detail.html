@@ -54,7 +54,7 @@
                 
                 {% if property.buyer %}
                 <div class="card-body d-flex justify-content-start">
-                    <div alt="" class="rounded-circle border border-primary u-border-4  u-expanded-width u-image u-image-circle u-preserve-proportions col-6" src=""  style="background-image: url('{% if property.buyer.user_image %}{{ property.buyer.user_image.url }}{% else %}{% static 'images/default-profile.png' %}{% endif %}');">
+                    <div alt="" class="px-0 rounded-circle border border-primary u-border-4  u-expanded-width u-image u-image-circle u-preserve-proportions col-6" src=""  style="background-image: url('{% if property.buyer.user_image %}{{ property.buyer.user_image.url }}{% else %}{% static 'images/default-profile.png' %}{% endif %}');">
                         <div class="u-preserve-proportions-child" style="padding-top: 100%;"></div>
                     </div>
                     <div class="text-left mx-4">

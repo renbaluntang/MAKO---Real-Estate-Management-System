@@ -28,8 +28,13 @@ class User(AbstractUser):
     
     def is_seller(self):
         return self.role and self.role.role_name == 'Seller' 
+    
+    def delete(self, *args, **kwargs):
+        # Update properties where this user is the buyer
+        self.properties_bought.update(is_reserved=False)
+        # Call the superclass delete method to delete the user
+        super().delete(*args, **kwargs)
     pass
-
 
 
 class Property(models.Model):
@@ -38,7 +43,7 @@ class Property(models.Model):
     property_price = models.DecimalField(max_digits=10, decimal_places=2)
     property_image = models.ImageField(upload_to='property_images/', null=True, blank=True)
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='properties')
-    buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='properties_bought', null=True, blank=True)
+    buyer = models.ForeignKey(User, on_delete=models.SET_NULL, related_name='properties_bought', null=True, blank=True)
     is_reserved = models.BooleanField(default=False) 
 
 
