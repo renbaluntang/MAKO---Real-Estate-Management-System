@@ -34,6 +34,11 @@ header img {
   border-radius: 8px;
 }
  
+.input-group {
+  border: 1px solid #dee2e6;
+    border-color: #343a40;
+}
+
 nav {
   display: flex;
   align-items: center;
