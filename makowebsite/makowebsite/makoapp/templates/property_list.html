@@ -40,12 +40,12 @@
                     <h5 class="card-title">{{ property.property_name }}</h5>
                                      
                     {% if not property.is_reserved %}
-                        <a href="{% url 'property_buy' property.id %}" class="btn btn-primary btn-full-width">Reserve Now</a>
+                        <a href="{% url 'property_buy' property.id %}" class="btn btn-primary col-10">Reserve Now</a>
                     {% else %}
-                        <span class="btn btn-secondary btn-full-width">Reserved</span>
+                        <span class="btn btn-secondary col-10">Reserved</span>
                     {% endif %}
                     <br>
-                    <a href="{% url 'property_detail' property.id %}" class="btn btn-outline-secondary mt-2 btn-full-width">View Details</a>
+                    <a href="{% url 'property_detail' property.id %}" class="btn btn-outline-secondary mt-2 col-10">View Details</a>
                 </div>
             </div>
         </div>
