@@ -4,32 +4,38 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}" />
 
+<section class="u-clearfix u-section-1" id="sec-5681">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <img class="custom-expanded u-image u-image-default u-image-1" src="{% static 'images/pexels-timur-saglambilek-872232.png' %}" alt="" data-image-width="792" data-image-height="617">
+      <h2 class="u-align-center-md u-align-center-sm u-align-center-xs u-text u-text-1">Modern living for everyone</h2>
+      <p class="u-align-center-md u-align-center-sm u-align-center-xs u-text u-text-2">We provide a complete service for the sale, purchase of real estate. Providing easy access to the Real Estate market for all.</p>
 
-<div class="main-section">
-    <div class="text-container">
-        <h1>Modern living</h1>
-        <h1>for everyone</h1>
-        <p><span  class="textArt">We provide a complete service for the sale, purchase<br> of real estate. Providing easy access to the Real Estate<br> market for all.</span></p>
-    </div>
-    <div class="search-container">
-        <form method="get" action="{% url 'property_list' %}">
-            <select name="status">
+      <div class="u-form u-grey-10 u-form-1">
+        <form method="get" class="u-clearfix u-form-spacing-0 u-inner-form px-2"  action="{% url 'property_list' %}" style="display: flex;flex-flow: row;align-items: center;height: 70px;">
+            <select name="status" class="u-input col-2" style="
+    height: 47px;
+">
                 <option value="">All</option>
                 <option value="unsold">Unsold</option>
                 <option value="reserved">Reserved</option>
             </select>
-            <input type="text" name="q" placeholder="Search for location" />
-            <button type="submit">Search</button>
+            <input type="text" name="q" placeholder="Search for location" class="u-input">
+            <button type="submit" class="u-btn">Search</button>
         </form>
+        
+           
+      </div>
     </div>
-</div>
+  </section>
 
 <div class="carousel-container">
-    <div class="carousel-overlay">
+    <div class="carousel-overlay u-repeater u-repeater-1">
         <div class="carousel-text">
             <h2>Featured Properties</h2>
-            <p >Fulfill your career dreams, enjoy all the achievements of the city center and<br>
-                luxury housing to the fullest.</p>
+            <p>
+                Fulfill your career dreams, enjoy all the achievements of the city center and<br>
+                luxury housing to the fullest.
+            </p>
         </div>
         <div class="carousel-btns">
             <div class="text-center mt-3">
@@ -41,7 +47,7 @@
                 <span class="sr-only">Previous</span>
             </a>
             &nbsp;
-            <a class="carousel-btn-container"href="#propertyCarousel" role="button" data-slide="next">
+            <a class="carousel-btn-container" href="#propertyCarousel" role="button" data-slide="next">
                 <span class="fas fa-chevron-right" aria-hidden="true"></span>
                 <span class="sr-only">Next</span>
             </a>
@@ -49,22 +55,27 @@
     </div>
     <br>
     <br>
+    
     <div id="propertyCarousel" class="carousel slide" data-ride="carousel" data-interval="4500">
         <div class="carousel-inner">
             {% for property_set in properties %}
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                <div class="row">
+                <div class="row justify-content-center">
                     {% for property in property_set %}
-                    <div class="col-md-3">
-                        <div class="card">
-                            <div class="card-image">
+                    <div class="col-12 col-md-4 mb-4 d-flex">
+                        <div class="card h-100 p-3">
+                            <div class="u-expanded-width u-image u-image-default u-image-1">
                                 {% if property.property_image %}
-                                    <img src="{{ property.property_image.url }}" class="carousel-card-img-top" alt="{{ property.property_name }}" />
+                                    <img src="{{ property.property_image.url }}" 
+                                         class="u-expanded-width u-image u-image-default u-image-1" 
+                                         alt="{{ property.property_name }}" />
                                 {% else %}
-                                    <img src="{% static 'images/default-image.png' %}" class="card-img-top" alt="Default Image" />
+                                    <img src="{% static 'images/default-image.png' %}" 
+                                         class="u-expanded-width u-image u-image-default u-image-1" 
+                                         alt="Default Image" />
                                 {% endif %}
                             </div>
-                            <div class="carousel-card-body mt-2">
+                            <div class="carousel-card-body card-body">
                                 <h5 class="card-title">{{ property.property_name }}</h5>
                                 <p class="card-text">{{ property.property_description }}</p>
                                 <p><strong>Price:</strong> ${{ property.property_price }}</p>
@@ -80,56 +91,65 @@
     </div>
 </div>
 
-<div class='about-container'>
-    <div class='about-images'>
-        <img src="{% static 'images/about.png' %}" alt="About Us" class="about-img1" />
-        <img src="{% static 'images/dots.png' %}" alt="About Us" class="about-img2" />
-    </div>
-    <div class='about-text'>
-        <h1>About Us</h1>
-        <p> 
-            We are a company that connects the world of real estate and finance. We provide a complete service for the sale, purchase or rental of real estate. Our advantage is more than 15 years of experience and soil in attractive locations in Slovakia with branches in Bratislava and Košice.
-        </p>
-        <p>
-            We have a connection to all banks on the Slovak market, so we can solve everything under one roof. By constantly innovating our business activities, we move forward and we are able to offer truly above-standard services that set us apart from the competition. 
-        </p>
-    </div>
-</div>
 
-<div class='team-section'>
-    <h1>Our Team</h1>
-    <p>Meet the team behind our company.<br>
-    We are looking a team of developers <br>
-    to help us build our website. haha<br>
-    </p>
-
-
-    <div class='team-container'>
-        <div class='team-card'>
-            <div class='crop-container'>
-                <img src="{% static 'images/cg.png' %}" alt="Cg M. Fernandez"/>
+<section class="u-clearfix u-container-align-center u-section-3" id="sec-4c98">
+    <div class="u-clearfix u-sheet u-valign-middle u-sheet-1">
+      <div class="data-layout-selected u-clearfix u-expanded-width u-gutter-0 u-layout-wrap u-layout-wrap-1">
+        <div class="u-layout">
+          <div class="u-layout-row">
+            <div class="u-align-center u-container-align-center u-container-style u-image u-layout-cell u-left-cell u-size-29 u-image-1" data-image-width="689" data-image-height="488">
+              <div class="u-container-layout u-valign-middle u-container-layout-1"></div>
             </div>
-            <h5>Cg M. Fernandez</h5>  
-            <p>CEO</p>
-        </div>
-
-        <div class='team-card'>
-            <div class='crop-container'>
-                <img src="{% static 'images/alon.jpg' %}" alt="Mike Francis B. Alon"/>
+            <div class="u-align-left u-container-align-left u-container-style u-layout-cell u-right-cell u-size-31 u-layout-cell-2">
+              <div class="u-container-layout u-container-layout-2">
+                <h2 class="u-align-left u-text u-text-default u-text-1">About Us</h2>
+                <p class="u-align-left u-text u-text-2"> We are a company that connects the world of real estate and finance. We provide a complete service for the sale, purchase or rental of real estate. Our advantage is more than 15 years of experience and soil in attractive locations in Slovakia with branches in Bratislava and Košice.<br>We have a connection to all banks on the Slovak market, so we can solve everything under one roof. By constantly innovating our business activities, we move forward and we are able to offer truly above-standard services that set us apart from the competition.
+                </p>
+              </div>
             </div>
-            <h5>Mike Francis B. Alon</h5>  
-            <p>Financer</p>
+          </div>
         </div>
-
-        <div class='team-card'>
-            <div class='crop-container'>
-                <img src="{% static 'images/rendolf.png' %}" alt="Rendolf Baluntang"/>
-            </div>
-            <h5>Rendolf Baluntang</h5>  
-            <p>UI/UX</p>
-        </div>
+      </div>
     </div>
-</div>
+  </section>
+
+<section class="u-align-center u-clearfix u-container-align-center u-grey-5 u-section-4" id="sec-0766">
+    <div class="u-clearfix u-sheet u-sheet-1">
+      <h2 class="u-text u-text-default-lg u-text-default-xl u-text-1">Our Team</h2>
+      <p class="u-align-left u-text u-text-2"> Fulfill your career dreams, enjoy all the achievements of the city center and luxury housing to the fullest.</p>
+      <div class="u-expanded-width u-list u-list-1">
+        <div class="u-repeater u-repeater-1">
+          <div class="u-align-center u-container-align-center u-container-style u-list-item u-repeater-item u-video-cover u-white">
+            <div class="u-container-layout u-similar-container u-valign-top u-container-layout-1">
+              <div alt="" class="u-border-4 u-border-palette-2-light-1 u-expanded-width u-image u-image-circle u-preserve-proportions u-image-1" src="">
+                <div class="u-preserve-proportions-child" style="padding-top: 100%;"></div>
+              </div>
+              <h5 class="u-align-center u-text u-text-3">CG M. Fernandez</h5>
+              <h6 class="u-align-center u-text u-text-4">President, CEO</h6>
+            </div>
+          </div>
+          <div class="u-align-center u-container-align-center u-container-style u-list-item u-repeater-item u-white u-list-item-2">
+            <div class="u-container-layout u-similar-container u-valign-top u-container-layout-2">
+              <div alt="" class="u-border-4 u-border-palette-2-light-1 u-expanded-width u-image u-image-circle u-preserve-proportions u-image-2" src="">
+                <div class="u-preserve-proportions-child" style="padding-top: 100%;"></div>
+              </div>
+              <h5 class="u-align-center u-text u-text-5">Mike Francis B. Alon</h5>
+              <h6 class="u-align-center u-text u-text-6">Financial Director</h6>
+            </div>
+          </div>
+          <div class="u-align-center u-container-align-center u-container-style u-list-item u-repeater-item u-white u-list-item-3">
+            <div class="u-container-layout u-similar-container u-valign-top u-container-layout-3">
+              <div alt="" class="u-border-4 u-border-palette-2-light-1 u-expanded-width u-image u-image-circle u-preserve-proportions u-image-3" src="">
+                <div class="u-preserve-proportions-child" style="padding-top: 100%;"></div>
+              </div>
+              <h5 class="u-align-center u-text u-text-7">Rendolf E. Baluntang</h5>
+              <h6 class="u-align-center u-text u-text-8">UI/UX Developer</h6>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>

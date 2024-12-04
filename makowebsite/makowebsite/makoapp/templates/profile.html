@@ -6,14 +6,12 @@
 
 {% block content %}
 <body class="profile-page">
-<div class="profile-container">
+<div class="profile-container col-xl-8 col-12">
     <!-- Profile Header -->
-    <div class="profile-header text-center mb-4">
-        {% if user.user_image %}
-        <img src="{{ user.user_image.url }}" alt="{{ user.user_name }}'s Profile Image" class="profile-image rounded-circle mb-3">
-        {% else %}
-        <img src="{% static 'images/default-profile.png' %}" alt="Default Profile Image" class="profile-image rounded-circle mb-3">
-        {% endif %}
+    <div class="profile-header text-center mb-4 d-flex flex-column align-items-center">
+        <div alt="" class="u-border-4 u-border-palette-2-light-1 u-expanded-width u-image u-image-circle u-preserve-proportions col-6" src=""  style="background-image: url('{% if user.user_image %}{{ user.user_image.url }}{% else %}{% static "images/default-profile.png" %}{% endif %}');">
+            <div class="u-preserve-proportions-child" style="padding-top: 100%;"></div>
+          </div>
         <h2>{{ user.user_name }}</h2>
         <p class="email">{{ user.user_email }}</p>
     </div>
