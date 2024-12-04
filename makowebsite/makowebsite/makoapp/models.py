@@ -39,7 +39,7 @@ class Property(models.Model):
     property_image = models.ImageField(upload_to='property_images/', null=True, blank=True)
     seller = models.ForeignKey(User, on_delete=models.CASCADE, related_name='properties')
     buyer = models.ForeignKey(User, on_delete=models.CASCADE, related_name='properties_bought', null=True, blank=True)
-    is_sold = models.BooleanField(default=False) 
+    is_reserved = models.BooleanField(default=False) 
 
 
     def __str__(self):
@@ -47,7 +47,7 @@ class Property(models.Model):
 
     def sell_property(self, buyer):
         self.buyer = buyer
-        self.is_sold = True
+        self.is_reserved = True
         self.save()
 
 

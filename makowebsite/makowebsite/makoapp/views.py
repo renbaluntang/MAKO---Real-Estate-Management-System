@@ -21,7 +21,7 @@ from .models import Property, TransactionHistory, Document, PropertyImage
 from django.utils import timezone
 
 
-    
+@login_required
 def user_management(request):
     users = User.objects.all()
     return render(request, 'user_management_users.html', {'users': users})
@@ -152,20 +152,20 @@ def edit_user_view(request, user_id):
 def user_management_dashboard_view(request):
     total_seller_accounts = User.objects.filter(role__role_name='Seller').count()
     total_buyer_accounts = User.objects.filter(role__role_name='Buyer').count()
-    recent_property = Property.objects.filter(is_sold=False).order_by('-id').first()  # Most recent property
-    recent_sold_property = Property.objects.filter(is_sold=True).order_by('-id').first()  # Most recent sold property
+    recent_property = Property.objects.filter(is_reserved=False).order_by('-id').first()  # Most recent property
+    recent_reserved_property = Property.objects.filter(is_reserved=True).order_by('-id').first()  # Most recent reserved property
     total_properties = Property.objects.count()  # Total properties count
-    total_sold_properties = Property.objects.filter(is_sold=True).count()  # Total sold properties count
-    available_properties_count = Property.objects.filter(is_sold=False).count()  # Count of available properties
+    total_reserved_properties = Property.objects.filter(is_reserved=True).count()  # Total reserved properties count
+    available_properties_count = Property.objects.filter(is_reserved=False).count()  # Count of available properties
     total_documents = Document.objects.count()  # Count total documents
  
     return render(request, 'user_management_dashboard.html', {
         'total_seller_accounts': total_seller_accounts,
         'total_buyer_accounts': total_buyer_accounts,
         'recent_property': recent_property,
-        'recent_sold_property': recent_sold_property,
+        'recent_reserved_property': recent_reserved_property,
         'total_properties': total_properties,
-        'total_sold_properties': total_sold_properties,
+        'total_reserved_properties': total_reserved_properties,
         'available_properties_count': available_properties_count,  # Pass the available properties count
         'total_documents': total_documents,  # Pass the total documents count
     })
@@ -202,10 +202,10 @@ def property_list(request):
         properties = properties.filter(property_name__icontains=query)
 
     # Apply status filter
-    if status == 'sold':
-        properties = properties.filter(is_sold=True)
+    if status == 'reserved':
+        properties = properties.filter(is_reserved=True)
     elif status == 'unsold':
-        properties = properties.filter(is_sold=False)
+        properties = properties.filter(is_reserved=False)
 
     return render(request, 'property_list.html', {'properties': properties, 'query': query})
 
@@ -264,13 +264,13 @@ def property_edit(request, property_id):
             updated_property.seller = property_instance.seller  # Keep the original seller
             
             # Set the property status based on the form input
-            updated_property.is_sold = form.cleaned_data.get('is_sold') == 'True'  # Set is_sold based on dropdown
+            updated_property.is_reserved = property_instance.form.cleaned_data.get('is_reserved') == 'True' 
             
             # Set the buyer based on the form input
             updated_property.buyer = form.cleaned_data.get('buyer')  # Assign the selected buyer
             
             # Clear the buyer information if the property is marked as unsold
-            if not updated_property.is_sold:
+            if not updated_property.is_reserved:
                 updated_property.buyer = None  # Disassociate the buyer from the property
             
             updated_property.save()  # Now save the instance
@@ -329,10 +329,10 @@ def seller_property_list(request):
         properties = properties.filter(property_name__icontains=query)
 
     # Apply status filter
-    if status == 'sold':
-        properties = properties.filter(is_sold=True)
-    elif status == 'unsold':
-        properties = properties.filter(is_sold=False)
+    if status == 'Reserved':
+        properties = properties.filter(is_reserved=True)
+    elif status == 'Unsold':
+        properties = properties.filter(is_reserved=False)
 
     return render(request, 'seller_property_list.html', {'properties': properties, 'query': query})
 
@@ -340,7 +340,7 @@ def seller_property_list(request):
 
 @login_required
 def property_buy(request, property_id):
-    property_instance = get_object_or_404(Property, id=property_id, is_sold=False)
+    property_instance = get_object_or_404(Property, id=property_id, is_reserved=False)
 
     if request.method == 'POST':
         # Use the currently logged-in user
@@ -348,7 +348,7 @@ def property_buy(request, property_id):
 
         # Assign the buyer and mark the property as sold
         property_instance.buyer = user
-        property_instance.is_sold = True
+        property_instance.is_reserved = True
         property_instance.save()
 
         # Create a transaction history record
@@ -371,7 +371,7 @@ def property_buy(request, property_id):
 
     return render(request, 'confirm_purchase.html', {'property': property_instance})
 
-
+@login_required
 def property_documents(request, property_id):
     property = get_object_or_404(Property, id=property_id)
     documents = Document.objects.filter(property=property)
@@ -401,6 +401,7 @@ def property_documents(request, property_id):
         'form': form
     })
     
+@login_required
 def edit_document_view(request, document_id):
     document = get_object_or_404(Document, id=document_id)
     if request.method == 'POST':
@@ -412,6 +413,7 @@ def edit_document_view(request, document_id):
         form = DocumentForm(instance=document)
     return render(request, 'edit_document.html', {'form': form, 'document': document})
 
+@login_required
 def delete_document_view(request, document_id):
     document = get_object_or_404(Document, id=document_id)
     property_id = document.property.id

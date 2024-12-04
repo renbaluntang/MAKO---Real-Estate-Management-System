@@ -5,14 +5,7 @@
 {% block title %}Property List{% endblock %}
 
 {% block content %}
-<style>
-    .property-image {
-        width: 100%; /* Make the image responsive */
-        height: 400px; /* Set a fixed height */
-        object-fit: cover; /* Ensure the image covers the area without distortion */
-    }
-    
-</style>
+
 <div class="container mt-5">
     <h1 class="mb-4 text-center">Property List</h1>
 
@@ -28,8 +21,8 @@
             <label for="status">Filter by Status:</label>
             <select name="status" id="status" class="form-control" onchange="this.form.submit()">
                 <option value="">All</option>
-                <option value="sold" {% if request.GET.status == 'sold' %}selected{% endif %}>Sold</option>
-                <option value="unsold" {% if request.GET.status == 'unsold' %}selected{% endif %}>Unsold</option>
+                <option value="reserved" {% if request.GET.status == 'Reserved' %}selected{% endif %}>Reserved</option>
+                <option value="unsold" {% if request.GET.status == 'Unsold' %}selected{% endif %}>Unsold</option>
             </select>
         </div>
     </form>
@@ -45,14 +38,14 @@
                 {% endif %}
                 <div class="card-body">
                     <h5 class="card-title">{{ property.property_name }}</h5>
-                    <p class="card-text description">{{ property.property_description }}</p>
-                    <p class="card-text price-red">${{ property.property_price }}</p>                    
-                    {% if not property.is_sold %}
-                        <a href="{% url 'property_buy' property.id %}" class="btn btn-success">Buy Now</a>
+                                     
+                    {% if not property.is_reserved %}
+                        <a href="{% url 'property_buy' property.id %}" class="btn btn-primary btn-full-width">Reserve Now</a>
                     {% else %}
-                        <span class="badge badge-secondary">Sold</span>
+                        <span class="btn btn-secondary btn-full-width">Reserved</span>
                     {% endif %}
-                    <a href="{% url 'property_detail' property.id %}" class="btn btn-primary mt-2">View Details</a>
+                    <br>
+                    <a href="{% url 'property_detail' property.id %}" class="btn btn-outline-secondary mt-2 btn-full-width">View Details</a>
                 </div>
             </div>
         </div>

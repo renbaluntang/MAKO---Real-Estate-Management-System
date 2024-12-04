@@ -5,54 +5,13 @@
 {% block title %}Property Detail{% endblock %}
 
 {% block content %}
-<style>
-    .property-container {
-        margin-top: 50px;
-    }
-    .property-card {
-        border-radius: 10px;
-        overflow: hidden;
-    }
-    .property-title {
-        font-size: 2.5rem;
-        font-weight: bold;
-        color: #333;
-    }
-    .property-description {
-        font-size: 1.2rem;
-        line-height: 1.5;
-        color: #555;
-    }
-    .property-price {
-        font-size: 1.5rem;
-        color: #F88D24; /* Bootstrap success color 28a745 */
-        font-weight: bold;
-    }
-    .btn-custom {
-        border-radius: 5px;
-        padding: 10px 20px;
-        font-size: 1rem;
-    }
-    .btn-back {
-        background-color: #007bff; /* Bootstrap primary color */
-        color: white;
-    }
-    .btn-documents {
-        background-color: #28a745; /* Bootstrap success color */
-        color: white;
-    }
-    .btn-upload {
-        background-color: #17a2b8; /* Bootstrap info color */
-        color: white;
-    }
-</style>
 
 <div class="container property-container">
     <div class="card property-card shadow-sm">
         <div class="card-body">
             <h1 class="property-title text-center mb-4">{{ property.property_name }}</h1>
             <div class="row">
-                <div class="col-md-6">
+                <div class="col-md-12">
                     {% if images.count > 0 %}
                         <div id="propertyImages" class="carousel slide" data-ride="carousel">
                             <div class="carousel-inner">
@@ -74,25 +33,83 @@
                             </a>
                         </div>
                     {% else %}
-                        <img src="{% static 'images/default-image.png' %}" class="img-fluid rounded mb-4" alt="Default Image">
+                        <img src="{% static 'images/default-image.png' %}" class="img-fluid rounded" alt="Default Image">
                     {% endif %}
                 </div>
-                <div class="col-md-6">
-                    <div class="card mt-4">
-                        <div class="card-body">
-                            <p class="property-description">{{ property.property_description }}</p>
-                            <p class="property-price"><strong>Price:</strong> ${{ property.property_price }}</p>
-                            <a href="{% url 'property_list' %}" class="btn btn-custom btn-back mt-3">Back to List</a>
-                            {% if user == property.seller or user == property.buyer %}
-                                <a href="{% url 'property_documents' property.id %}" class="btn btn-custom btn-documents mt-3">View Documents</a>
-                            {% endif %}
-                            {% if user == property.seller %}
-                                <a href="{% url 'upload_property_images' property.id %}" class="btn btn-custom btn-upload mt-3">Upload Images</a>
-                            {% endif %}
-                        </div>
+            </div>
+        </div>
+
+        <div class="row justify-content-between">
+            <div class="col-md-3 mb-2 p-0 ml-3">
+                <div class="card-body d-flex justify-content-start">
+                    {% if property.seller.user_image %} 
+                        <img src="{{ property.seller.user_image.url }}" alt="{{ property.seller.user_name }}" style="width: 80px; height: auto; margin-right: 15px;">
+                    {% else %}
+                        <img src="{% static 'images/default-profile.png' %}" class="rounded-circle" alt="Default Profile" style="width: 80px; height: 80px; margin-right: 15px;">
+                    {% endif %}
+                    <div class="text-left">
+                        <span class="d-block" style="font-size: 0.9rem; color: gray;">Sold by</span>
+                        <h5 class="mb-0" style="font-size: 1.5rem;">{{ property.seller.user_name }}</h5>
+                    </div>
+                </div>
+                
+                {% if property.buyer %}
+                <div class="card-body d-flex justify-content-start">
+                    {% if property.buyer.user_image %} 
+                        <img src="{{ property.buyer.user_image.url }}" alt="{{ property.buyer.user_name }}" style="width: 80px; height: auto; margin-right: 15px;">
+                    {% else %}
+                        <img src="{% static 'images/default-profile.png' %}" class="rounded-circle" alt="Default Profile" style="width: 80px; height: 80px; margin-right: 15px;">
+                    {% endif %}
+                    <div class="text-left">
+                        <span class="d-block" style="font-size: 0.9rem; color: gray;">Reserved for</span>
+                        <h5 class="mb-0" style="font-size: 1.5rem;">{{ property.buyer.user_name }}</h5>
+                    </div>
+                </div>
+                {% endif %}
+            </div>
+
+            <div class="col-md-8 mb-2 mr-4">
+                <div class="card mb-2">
+                    <div class="card-body bg-light">
+                        <p class="property-price">
+                            <span class="highlight">${{ property.property_price }}</span>
+                        </p>
+                        <hr>
+                        <p class="property-description">
+                            <strong>Description and Location</strong> <br>
+                            <span class="highlight">{{ property.property_description }}</span>
+                        </p>
+                        <a href="{% url 'property_list' %}" class="btn btn-outline-secondary btn-custom btn-sm mt-3">Back to List</a>
+                        {% if user == property.seller or user == property.buyer %}
+                            <a href="{% url 'property_documents' property.id %}" class="btn btn-custom btn-documents btn-sm mt-3">View Documents</a>
+                        {% endif %}
+                        {% if user == property.seller %}
+                            <a href="{% url 'upload_property_images' property.id %}" class="btn btn-custom btn-upload btn-sm mt-3">Upload Images</a>
+                        {% endif %}
                     </div>
                 </div>
             </div>
+        </div>
+    </div>
+
+    <div class="card property-card shadow-sm mt-5">
+        <h1 class="p-4">{{ property.property_name }} Photos</h1>
+        <p class="pb-0 pt-0 pl-4 pr-4">Welcome to the photo gallery of <strong>{{ property.property_name }}</strong>, where every image highlights the distinct charm, architectural elegance, and unparalleled features of this exceptional property. Whether you are seeking inspiration or considering this property for your next venture, these photos provide a comprehensive visual journey, capturing the essence of what makes <strong>{{ property.property_name }}</strong> truly remarkable.</p>
+        
+        <div class="row">
+            {% if images.count > 0 %}
+                {% for image in images %}
+                    {% if image.image %}
+                        <div class="col-12 mb-3"> 
+                            <div class="card-body p-2">
+                                <img src="{{ image.image.url }}" class="img-fluid rounded fixed-size-image" alt="{{ property.property_name }}">
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            {% else %}
+                <img src="{% static 'images/default-image.png' %}" class="img-fluid rounded mb-4" alt="Default Image">
+            {% endif %}
         </div>
     </div>
 </div>

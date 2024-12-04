@@ -12,7 +12,7 @@ class Migration(migrations.Migration):
     operations = [
         migrations.AddField(
             model_name='property',
-            name='is_sold',
+            name='is_reserved',
             field=models.BooleanField(default=False),
         ),
     ]

@@ -158,10 +158,10 @@ class UserUpdateForm(forms.ModelForm):
 class PropertyUpdateForm(forms.ModelForm):
     PROPERTY_STATUS_CHOICES = [
         (False, 'Unsold'),
-        (True, 'Sold'),
+        (True, 'Reserved'),
     ]
     
-    is_sold = forms.ChoiceField(
+    is_reserved = forms.ChoiceField(
         choices=PROPERTY_STATUS_CHOICES, 
         widget=forms.Select(attrs={'class': 'form-control'}), 
         required=False
@@ -176,7 +176,7 @@ class PropertyUpdateForm(forms.ModelForm):
 
     class Meta:
         model = Property
-        fields = ['property_name', 'property_description', 'property_price', 'property_image', 'is_sold', 'buyer']
+        fields = ['property_name', 'property_description', 'property_price', 'property_image', 'is_reserved', 'buyer']
         widgets = {
             'property_name': forms.TextInput(attrs={'class': 'form-control'}),
             'property_description': forms.TextInput(attrs={'class': 'form-control'}),

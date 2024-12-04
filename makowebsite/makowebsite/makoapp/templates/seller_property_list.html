@@ -26,7 +26,7 @@
                 <label for="status">Filter by Status:</label>
                 <select name="status" id="status" class="form-control" onchange="this.form.submit()">
                     <option value="">All</option>
-                    <option value="sold" {% if request.GET.status == 'sold' %}selected{% endif %}>Sold</option>
+                    <option value="reserved" {% if request.GET.status == 'reserved' %}selected{% endif %}>Reserved</option>
                     <option value="unsold" {% if request.GET.status == 'unsold' %}selected{% endif %}>Unsold</option>
                 </select>
             </div>
@@ -45,8 +45,8 @@
                         <h5 class="card-title">{{ property.property_name }}</h5>
                         <p class="card-text">{{ property.property_description }}</p>
                         <p class="card-text price-red">${{ property.property_price }}</p>                        <p class="card-text"><strong>Seller:</strong> {{ property.seller.username }} ({{property.seller.user_name}})</p>
-                        {% if property.is_sold %}
-                            <span class="badge badge-danger">Sold</span>
+                        {% if property.is_reserved %}
+                            <span class="badge badge-danger">Reserved</span>
                             <p class="card-text"><strong>Buyer:</strong> {{ property.buyer.username }} ({{property.buyer.user_name}})</p>
                         {% else %}
                             <span class="badge badge-success">Available</span>

@@ -16,7 +16,7 @@
             <select name="status">
                 <option value="">All</option>
                 <option value="unsold">Unsold</option>
-                <option value="sold">Sold</option>
+                <option value="reserved">Reserved</option>
             </select>
             <input type="text" name="q" placeholder="Search for location" />
             <button type="submit">Search</button>
@@ -64,7 +64,7 @@
                                     <img src="{% static 'images/default-image.png' %}" class="card-img-top" alt="Default Image" />
                                 {% endif %}
                             </div>
-                            <div class="carousel-card-body">
+                            <div class="carousel-card-body mt-2">
                                 <h5 class="card-title">{{ property.property_name }}</h5>
                                 <p class="card-text">{{ property.property_description }}</p>
                                 <p><strong>Price:</strong> ${{ property.property_price }}</p>

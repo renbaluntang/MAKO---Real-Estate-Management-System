@@ -36,18 +36,20 @@
                 {% for document in documents %}
                 <li class="list-group-item d-flex justify-content-between align-items-center">
                     <div>
-                        {{ document.documentation_type }}
+                        <h6>{{ document.documentation_type }}</h6>
                         {% if document.documentation_image %}
-                            <img src="{{ document.documentation_image.url }}" class="img-thumbnail mt-2" style="max-width: 50px;" alt="{{ document.documentation_type }}">
+                            <img src="{{ document.documentation_image.url }}" class="img-thumbnail mt-2" style="max-width: 400px;" alt="{{ document.documentation_type }}">
                         {% endif %}
-                        {% if document.buyer %}
-                            <p class="mt-2"><strong>Buyer:</strong> {{ document.buyer.user_name }}</p>
+                        {% if document.seller %}
+                            <p class="mt-2"><strong>Agent Document Holder:</strong> {{ document.seller.user_name }}</p>
                         {% endif %}
                     </div>
+                    {% if user.role.role_name == 'Seller' %}
                     <div>
-                        <a href="{% url 'document_edit' document.id %}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{% url 'document_edit' document.id %}" class="btn btn-outline-primary">Edit</a>
                         <a href="{% url 'document_delete' document.id %}" class="btn btn-danger btn-sm">Delete</a>
                     </div>
+                    {% endif %}
                 </li>
                 {% empty %}
                 <li class="list-group-item">No documents available.</li>
@@ -55,12 +57,14 @@
             </ul>
 
             <!-- Form to add a new document -->
-            <h3 class="mb-3">Add New Document</h3>
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                {{ form.as_p }}
-                <button type="submit" class="btn btn-success">Add Document</button>
-            </form>
+            {% if user.role.role_name == 'Seller' %}
+                <h3 class="mb-3">Add New Document</h3>
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <button type="submit" class="btn btn-success">Add Document</button>
+                </form>
+            {% endif %}
         </div>
     </div>
 </div>

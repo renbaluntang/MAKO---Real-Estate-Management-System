@@ -2,12 +2,10 @@
 {% load static %}
 {% load custom_filters %}
 
-{% block title %}Confirm Purchase{% endblock %}
+{% block title %}Confirm Reservation{% endblock %}
 
 {% block content %}
 <div class="container mt-5">
-    <h1 class="text-center mb-4">Confirm Purchase for {{ property.property_name }}</h1>
-
     <div class="card mb-4">
         <div class="card-header">
             <h5 class="mb-0">Property Details</h5>
@@ -28,8 +26,8 @@
         {% csrf_token %}
         
         <div class="text-center mt-4">
-            <p>You are about to purchase this property as {{ request.user.username }}.</p>
-            <button type="submit" class="btn btn-primary btn-lg">Confirm Purchase</button>
+            <p>You are about to reserve this property as {{ request.user.username }}.</p>
+            <button type="submit" class="btn btn-primary btn-lg">Confirm Reservation</button>
             <a href="{% url 'property_detail' property.id %}" class="btn btn-secondary btn-lg ml-2">Cancel</a>
         </div>
     </form>

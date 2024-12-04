@@ -104,9 +104,9 @@
                 <div class="card-body text-center text-white" style="background-color: #4778a9; border-radius: 10px;">
                     <h5 class="card-title">
                         <i class="fas fa-check-circle" ></i>
-                        Sold Properties:
+                        Reserved Properties:
                     </h5>
-                    <h2 class="card-text">{{ total_sold_properties }}</h2>  <!-- Display total sold properties count -->
+                    <h2 class="card-text">{{ total_reserved_properties }}</h2>  <!-- Display total reserved properties count -->
                 </div>
             </div>
 
@@ -121,31 +121,31 @@
             </div>
         </div>
 
-        <div class="col-md-4 mb-4">  <!-- Most Recently Sold Property Card -->
+        <div class="col-md-4 mb-4">  <!-- Most Recently reserved Property Card -->
             <div class="card5" style="width: 100%; box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); transition: transform 0.2s; border-radius: 10px;">
                 <div class="card-body">
                     <h5 class="card-title">
                         <i class="fas fa-home" style="margin-right: 8px;"></i>
-                        Latest Property Sold
+                        Latest Property Reserved
                     </h5>
-                    {% if recent_sold_property %}
-                        {% if recent_sold_property.property_image %}
-                            <img src="{{ recent_sold_property.property_image.url }}" class="img-fluid mb-3 property-image" alt="{{ recent_sold_property.property_name }}">
+                    {% if recent_reserved_property %}
+                        {% if recent_reserved_property.property_image %}
+                            <img src="{{ recent_reserved_property.property_image.url }}" class="img-fluid mb-3 property-image" alt="{{ recent_reserved_property.property_name }}">
                         {% else %}
                             <img src="{% static 'images/default-image.png' %}" class="img-fluid mb-3 property-image" alt="Default Image">
                         {% endif %}
-                        <h5 class="card-title">{{ recent_sold_property.property_name }}</h5>
-                        <p class="card-text">{{ recent_sold_property.property_description }}</p>
-                        <p class="card-text"><strong>Price:</strong> ${{ recent_sold_property.property_price }}</p>
+                        <h5 class="card-title">{{ recent_reserved_property.property_name }}</h5>
+                        <p class="card-text">{{ recent_reserved_property.property_description }}</p>
+                        <p class="card-text"><strong>Price:</strong> ${{ recent_reserved_property.property_price }}</p>
                         <p class="card-text d-flex justify-content-between align-items-center">
-                            <span><strong>Seller:</strong> {{ recent_sold_property.seller.user_name }}</span>
+                            <span><strong>Seller:</strong> {{ recent_reserved_property.seller.user_name }}</span>
                         </p>
                         </p>
                             <a href="{% url 'property_detail' recent_property.id %}" class="text-info" style="text-decoration: underline;">View Details</a>
                             <a href="{% url 'property_list' %}" class="text-info ms-3" style="text-decoration: underline; margin-left: 85px;">View All Properties</a>
                         </p>
                     {% else %}
-                        <p>No recent sold properties available.</p>
+                        <p>No recent reserved properties available.</p>
                     {% endif %}
                 </div>
             </div>
