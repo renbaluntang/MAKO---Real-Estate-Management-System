@@ -62,16 +62,16 @@
             <div class="carousel-item {% if forloop.first %}active{% endif %}">
                 <div class="row justify-content-center">
                     {% for property in property_set %}
-                    <div class="col-12 col-md-4 mb-4 d-flex">
-                        <div class="card h-100 p-3">
+                    <div class="col-12 col-lg-6 col-xl-4 mb-4 d-flex">
+                        <div class="card h-100 p-3 col-12">
                             <div class="u-expanded-width u-image u-image-default u-image-1">
                                 {% if property.property_image %}
                                     <img src="{{ property.property_image.url }}" 
-                                         class="u-expanded-width u-image u-image-default u-image-1" 
+                                         class="u-expanded-width u-image u-image-default u-image-1 col-12" 
                                          alt="{{ property.property_name }}" />
                                 {% else %}
                                     <img src="{% static 'images/default-image.png' %}" 
-                                         class="u-expanded-width u-image u-image-default u-image-1" 
+                                         class="u-expanded-width u-image u-image-default u-image-1 col-12" 
                                          alt="Default Image" />
                                 {% endif %}
                             </div>
@@ -150,6 +150,62 @@
       </div>
     </div>
   </section>
+
+</section>
+<section class="u-align-center u-clearfix u-container-align-center u-container-align-center-lg u-container-align-center-xl u-white u-section-5" id="carousel_12ad">
+  <div class="u-clearfix u-sheet u-sheet-1">
+    <h2 class="u-text u-text-default-lg u-text-default-xl u-text-1 py-4">References</h2>
+    <p class="u-align-left u-text u-text-2"> Fulfill your career dreams, enjoy all the achievements of the city center and luxury housing to the fullest.</p>
+    <div id="carousel-55fa" data-interval="5000" data-u-ride="carousel" class="u-carousel u-expanded-width-sm u-expanded-width-xs u-slider u-slider-1">
+      <ol class="u-absolute-hcenter u-carousel-indicators u-carousel-indicators-1">
+        <li data-u-target="#carousel-55fa" class="u-active u-grey-30 u-shape-circle" data-u-slide-to="0" style="width: 10px; height: 10px;"></li>
+        <li data-u-target="#carousel-55fa" class="u-grey-30 u-shape-circle" data-u-slide-to="1" style="width: 10px; height: 10px;"></li>
+      </ol>
+      <div class="u-carousel-inner shadow-lg p-4 d-flex justify-content-center align-items-center" role="listbox">
+        <div class="u-active u-align-center u-carousel-item u-container-align-center u-container-style u-slide">
+          <div class="u-container-layout u-container-layout-1">
+            <p class="u-large-text u-text u-text-variant u-text-3">"Finding your dream home is easy with our expert team. Whether you're looking for luxury or a cozy starter, we provide personalized service and local expertise to make your real estate journey smooth and stress-free."</p>
+            <h4 class="u-text u-text-default u-text-4">Cg M. Fernandez<br>
+            </h4>
+            <h6 class="u-text u-text-default u-text-5">President, CEO</h6>
+          </div>
+        </div>
+        <div class="u-align-center u-carousel-item u-container-align-center u-container-style u-slide">
+          <div class="u-container-layout u-container-layout-2">
+            <p class="u-large-text u-text u-text-variant u-text-6">"Your perfect home is just a click away. We offer a wide range of properties, expert advice, and a seamless experience to help you find the ideal place to call home."</p>
+            <h4 class="u-text u-text-default u-text-7"> Mike Francis Alon<br>
+            </h4>
+            <h6 class="u-text u-text-default u-text-8">Sales Manager</h6>
+          </div>
+        </div>
+      </div>
+      <a class="u-absolute-vcenter u-carousel-control u-carousel-control-prev u-grey-70 u-hidden-xs u-icon-circle u-spacing-10 u-carousel-control-1" href="#carousel-55fa" role="button" data-u-slide="prev">
+        <span aria-hidden="true">
+          <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+        </span>
+        <span class="sr-only">
+          <svg viewBox="0 0 451.847 451.847"><path d="M97.141,225.92c0-8.095,3.091-16.192,9.259-22.366L300.689,9.27c12.359-12.359,32.397-12.359,44.751,0
+c12.354,12.354,12.354,32.388,0,44.748L173.525,225.92l171.903,171.909c12.354,12.354,12.354,32.391,0,44.744
+c-12.354,12.365-32.386,12.365-44.745,0l-194.29-194.281C100.226,242.115,97.141,234.018,97.141,225.92z"></path></svg>
+        </span>
+      </a>
+      <a class="u-absolute-vcenter u-carousel-control u-carousel-control-next u-grey-70 u-hidden-xs u-icon-circle u-spacing-10 u-carousel-control-2" href="#carousel-55fa" role="button" data-u-slide="next">
+        <span aria-hidden="true">
+          <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+        </span>
+        <span class="sr-only">
+          <svg viewBox="0 0 451.846 451.847"><path d="M345.441,248.292L151.154,442.573c-12.359,12.365-32.397,12.365-44.75,0c-12.354-12.354-12.354-32.391,0-44.744
+L278.318,225.92L106.409,54.017c-12.354-12.359-12.354-32.394,0-44.748c12.354-12.359,32.391-12.359,44.75,0l194.287,194.284
+c6.177,6.18,9.262,14.271,9.262,22.366C354.708,234.018,351.617,242.115,345.441,248.292z"></path></svg>
+        </span>
+      </a>
+    </div>
+  </div>
+</section>
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>

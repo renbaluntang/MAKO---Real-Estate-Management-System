@@ -1,3 +1,17 @@
+body.login-page {
+  background: url("{% static 'images/pexels-timur-saglambilek-872232.png' %}") no-repeat center center fixed;
+  background-size: cover;
+  height: 100vh;
+  margin: 0;
+}
+
+.login-form {
+  background: rgba(255, 255, 255, 0.9); /* Slightly transparent white background for the form */
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
+}
+
 .u-section-1 .u-sheet-1 {
   min-height: 664px;
 }
@@ -878,7 +892,7 @@
 
 @media (max-width: 767px) {
   .u-section-5 .u-text-1 {
-    margin-top: 642px;
+    margin-top: 30px;
     margin-right: 214px;
   }
 
@@ -905,7 +919,7 @@
 
 @media (max-width: 575px) {
   .u-section-5 .u-text-1 {
-    margin-top: 744px;
+    margin-top: 14px;
     margin-right: 14px;
   }
 

@@ -15737,6 +15737,7 @@ div.u-video,
     grid-template-columns: repeat(6, 16.66666667%);
   }
 }
+
 @media (max-width: 575px) {
   .u-columns-6-xs .u-popupmenu-items {
     grid-template-columns: repeat(6, 16.66666667%);

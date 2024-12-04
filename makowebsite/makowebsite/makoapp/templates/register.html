@@ -6,7 +6,22 @@
 {% block title %}Register{% endblock %}
 
 {% block content %}
-<div class="register-form-container">
+<style>
+  header {
+    display: none;
+  }
+  footer{
+    display: none;
+  }
+  .main-content{
+    padding: 0;
+    margin: 0;
+  }
+  
+</style>
+<div class="register-form-container" style="background-color: aqua;
+    height: 100vh;
+">
 <form method="post" enctype="multipart/form-data" action="{% url 'register' %}" class="register-form">
   {% csrf_token %}
 
@@ -101,6 +116,8 @@
   </div>
 
   <input type="submit" value="Register" class="btn-register btn btn-primary" />
+  <h6 class="text-center">Already have an acount? <a href="/login/">Login</a></h6>
+  
 </form>
 </div>
 {% endblock %}
